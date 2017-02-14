@@ -1,0 +1,38 @@
+
+
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+  *overflow: hidden;
+}
+
+@mixin blind() {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+}
+
+@mixin ellipsis() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+@mixin test-width($ieimgw, $ieimgh) {
+    width:$ieimgw;
+    height:$ieimgh;
+    html[data-useragent*="MSIE 8.0"] &{
+        width: ceil(($ieimgw / 2));
+        height: ceil(($ieimgh / 2));
+    }
+}

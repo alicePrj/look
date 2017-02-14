@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi">
+<title>유동적 너비에서 동일한 여백을 갖는 박스모델</title>
+
+
+<style type="text/css">
+body {
+  margin: 0;
+  padding: 10px 0;
+  background-color: #E3F2FD;
+}
+
+h3 {
+  text-align: center;
+}
+
+#wrap {
+  margin: 0 auto;
+  padding: 10px 0;
+  width: 700px;
+  background-color: #90caf9;
+}
+
+.area {
+  margin: 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+}
+
+.area:before {
+  display: inline-block;
+  width: 1px;
+  content: '';
+}
+
+.area:after {
+  display: inline-block;
+  width: 1px;
+  content: '';
+}
+
+.item {
+  display: inline-block;
+  border: 1px solid #0d48a1;
+  background-color: #1565c0;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+}
+</style>
+</head>
+<body>
+  <!--
+
+  주요 속성 : display:flex / justify-content: space-between / before/ after
+  특징 : 빈태그 추가 안해도 됨. 단, 모바일에서 X 똻(머나먼 미래에 사용가능예상...ㅠ)
+
+!-->
+
+
+  <div id="wrap">
+    <h3> 2개 </h3>
+    <ul class="area">
+      <li class="item">내용내용</li>
+      <li class="item">내용내용</li>
+    </ul>
+
+    <h3> 3개 </h3>
+    <ul class="area">
+      <li class="item">내용내용</li>
+      <li class="item">내용내용</li>
+      <li class="item">내용내용</li>
+    </ul>
+
+    <h3> 4개 </h3>
+    <ul class="area">
+      <li class="item">내용내용</li>
+      <li class="item">내용내용</li>
+      <li class="item">내용내용</li>
+      <li class="item">내용내용</li>
+    </ul>
+
+    <h3> 내용이 긴 경우 </h3>
+    <ul class="area">
+      <li class="item">내용내용내용내용내용내용</li>
+      <li class="item">내용내용내용내용내용내용</li>
+      <li class="item">내용내용내용내용내용내용</li>
+      <li class="item">내용내용내용내용내용내용</li>
+      <li class="item">내용내용내용내용내용내용</li>
+      <li class="item">내용내용내용내용내용내용</li>
+      <li class="item">내용내용내용내용내용내용</li>
+    </ul>
+  </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi">
+<title>유동적 너비에서 동일한 여백을 갖는 박스모델</title>
+
+
+<style type="text/css">
+*{padding:0;margin:0}
+ul{display:table;table-layout:fixed;width:100%;background:red}
+li{display:table-cell;list-style:none}
+li a{display:block;height:100%;text-align:center;background:yellow}
+li.box{width:100px;height:100px}
+ul:before{display:table-cell;content:''}
+ul:after{display:table-cell;content:''}
+</style>
+</head>
+<body>
+
+<!--
+
+주요 속성 : display:table/ display:table-cell/ before/ after
+특징 : 빈태그 하나 추가 필요
+
+!-->
+
+  <div id="wrap">
+    <h3> 2개 </h3>
+    <ul>
+  <li class="box"><a href="#">박스1</a></li>
+  <li></li>
+  <li class="box"><a href="#">박스2</a></li>
+  </ul>
+
+  </div>
+
+
+</body>
+
+</html>
