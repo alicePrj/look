@@ -9,8 +9,6 @@ const sourcemaps = require('gulp-sourcemaps');
 const livereload  = require('gulp-livereload');
 
 
-
-
 // var paths = {
 //   css_src: 'src/scss/',
 //   css_dest: 'src/css/',
@@ -35,6 +33,7 @@ var scssOptions = {
   sourceComments: false
   //sourceComments: true
 };
+
 
 
 gulp.task('scss:compile', function () {
