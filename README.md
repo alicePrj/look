@@ -37,6 +37,8 @@ js는 json array 또는 html include test 용도 정도로 간단하게 사용. 
 ---
 
 
+16일 에러 메시지 나오게 설정할것!!!!! notice 랑 plumber!!!!!!!!
+
 
 http://sass-lang.com/guide  --- 중간에 operators에 보면 셀렉터에 article[role="main"]  <--- 요런식으로 되어있는거 참고 할 수 있을것임.
 기본적으로 css와 셀렉터 참조하는 방식이 같음.

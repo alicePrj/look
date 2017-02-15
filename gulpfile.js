@@ -9,7 +9,7 @@ const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
-//const browserSync = require('browser-sync');
+const browserSync = require('browser-sync').create();
 
 const gulpif = require('gulp-if');
 
@@ -43,6 +43,13 @@ var scssOptions = {
 };
 
 
+// gulp.task('html', function () {
+//   return gulp.src('./**/*.html')
+// .pipe(browserSync.reload({
+//   stream : true
+// }));
+//
+// });
 
 gulp.task('scss:compile', function () {
    return gulp
@@ -51,14 +58,25 @@ gulp.task('scss:compile', function () {
     .pipe(sass(scssOptions).on('error', sass.logError))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(src + '/css'))
-    .pipe(gulpif(config.browserSync, browserSync.stream({match:'**/*.css'})));
+    .pipe(browserSync.reload({
+       stream : true
+    }));
+
 });
 
-
+gulp.task('browserSync', [ 'scss:compile'], function () {
+   return browserSync.init({
+     port : 3333,
+     server: {
+       baseDir: "./src"
+     }
+   });
+ });
+''
 gulp.task('watch', function () {
-
-    gulp.watch(paths.scss, ['scss:compile']);
+  gulp.watch('./**/*.html', ['html']);
+  gulp.watch(paths.scss, ['scss:compile']);
 });
 
 
-gulp.task('default', ['scss:compile','watch','browserSync']);
+gulp.task('default', ['browserSync','watch']);
