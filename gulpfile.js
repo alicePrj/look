@@ -1,13 +1,17 @@
 'use strict';
 
 const gulp = require('gulp');
+const path = require('path');
+const lazypipe = require('lazypipe');
 const sass = require('gulp-sass');
+
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
-const livereload  = require('gulp-livereload');
+//const browserSync = require('browser-sync');
 
+const gulpif = require('gulp-if');
 
 // var paths = {
 //   css_src: 'src/scss/',
@@ -22,6 +26,10 @@ var paths = {
   js : src + '/js/**/*.js',
   scss : src + '/scss/**/*.scss'
 };
+
+var config ={
+  browserSync: false
+}
 
 
 
@@ -43,6 +51,7 @@ gulp.task('scss:compile', function () {
     .pipe(sass(scssOptions).on('error', sass.logError))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(src + '/css'))
+    .pipe(gulpif(config.browserSync, browserSync.stream({match:'**/*.css'})));
 });
 
 
@@ -52,4 +61,4 @@ gulp.task('watch', function () {
 });
 
 
-gulp.task('default', ['scss:compile','watch']);
+gulp.task('default', ['scss:compile','watch','browserSync']);
