@@ -3,8 +3,8 @@
  scss autoprefixer function~ 재미남~
  https://github.com/sass-projects/autoprefixer/blob/master/tests/specs/_autoprefixer.scss
 
-### 16일 에러 메시지 나오게 설정할것!!!!! notice 랑 plumber!!!!!!!!
-
+### 16일 에러 메시지 나오게 설정할것!!!!! notice 랑 plumber!!!!!!!!   ---- 완료!
+### 17일 gulpfile 초기 var config 에 proferties 정리할 것. autoprefixer 준비!
 
 _http://sass-lang.com/guide  --- 중간에 operators에 보면 셀렉터에 article[role="main"]  <--- 요런식으로 되어있는거 참고 할 수 있을것임._
 기본적으로 css와 셀렉터 참조하는 방식이 같음.
