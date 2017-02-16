@@ -18,7 +18,7 @@ _-- 이후 dist폴더로 복사되는 dev task 추가로 생성할 예정_
     - selectivizr.js
     - html5shiv.js
 8. Cross Browsing (기본 PC용 브라우저,Oracle VM virtualBox , Genymotion 사용)
-    1. pc
+    1. pc (모던 브라우저의경우 최신 두가지 메이저 버전에 대해 지원)
         - MSIE 8.0 , MSIE 9.0 , MSIE10.0 , MSIE 11.0 , Microsoft_edge(spartan)
         - Firefox  -- last 2 versions
         - Chrome  -- last 2 versions

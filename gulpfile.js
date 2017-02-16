@@ -13,6 +13,9 @@ const browserSync = require('browser-sync').create();
 
 const gulpif = require('gulp-if');
 
+const notify = require("gulp-notify");
+const plumber = require('gulp-plumber');
+
 // var paths = {
 //   css_src: 'src/scss/',
 //   css_dest: 'src/css/',
@@ -28,7 +31,9 @@ var paths = {
 };
 
 var config ={
-  browserSync: false
+  browserSync: false,
+  notify: true,
+	urlRebase: false
 }
 
 
@@ -51,9 +56,22 @@ var scssOptions = {
 //
 // });
 
+
+var globalOptions = {
+	notify: !config.notify ? {} : {
+		errorHandler: notify.onError({
+			title: '<%= error.relativePath %>',
+			message: '<%= error.line %> line - <%= error.messageOriginal %>',
+			sound: "Pop"
+		})
+	}
+}
+
+
 gulp.task('scss:compile', function () {
    return gulp
     .src(paths.scss)
+    .pipe(plumber(globalOptions.notify))
     .pipe(sourcemaps.init())
     .pipe(sass(scssOptions).on('error', sass.logError))
     .pipe(sourcemaps.write('./'))
