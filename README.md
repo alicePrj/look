@@ -2,8 +2,7 @@
 
 ## build 방법
 -- window : cmd -> local repo 경로로 이동 'gulp'  치면 gulp default task 실행 됨.
-
-_이후 dist로 처리되는 dev task 생성 예정_
+_-- 이후 dist폴더로 복사되는 dev task 추가로 생성할 예정_
 
 
 ### 개발환경
@@ -48,5 +47,4 @@ _이후 dist로 처리되는 dev task 생성 예정_
 - PC와 모바일 (반응형) 배경 이미지 동시 생성을 위한 spritesmith 준비. <-- handlebar 활용 하여 ie 분기할것!
 - js는 json array 또는 html include test 용도 정도로 간단하게 사용. js 하나만을 공용으로 사용할 예정으로 js concat 불필요. <-- 이후에 ui component 추가 작업이 필요할 경우 module 로 분리할 것임.
 - 최종 dist(빌드시) postcss에서 url rebase 처리하여 상대경로 처리해줄것. (절대 경로로 되돌리는것도 유연하게 boolean 처리!)
----
 - 플랫폼이 아니기에~ grid나 mixin 라이브러리 는 불필요 할듯~
