@@ -2,6 +2,7 @@
 
 ## build 방법
 -- window : cmd -> local repo 경로로 이동 'gulp'  치면 gulp default task 실행 됨.
+_이후 dist로 처리되는 dev task 생성 예정_
 
 
 ### 개발환경
@@ -10,7 +11,7 @@
 3. node-sass
 4. css3,html5.
 5. mobile first
-6. Data는 test 용으로 json array 형태의 text 파일 또는 js 파일을 임시로 사용 함. (DB 없음)8.
+6. Data는 test 용으로 json array 형태의 text 파일 또는 js 파일을 임시로 사용 함. (DB 없음)
 7. ie8 대응을 위한 pollyfill
     - respond.js
     - nwmatcher.js
@@ -22,7 +23,7 @@
         - Firefox  -- last 2 versions
         - Chrome  -- last 2 versions
         - Safari -- last 2 versions
-        - Operators -- last 2 versions
+        - Opera -- last 2 versions
     2. mobile
         - Android  > 0
         - iOS > 0
@@ -34,8 +35,8 @@
 2. 스프라이트 테스트 예정~
 3. html 인클루드 템플릿 테스트 예정~
 4. handlebar 처리~~
-5. 이후  webpack으로 변경 예정~~
-6. 'look' repo 전용 wiki 에 gulp가이드 만들고 사전준비 및 Task 상세 설명할 예정.
+5. 이후  task runner를 gulp에서 webpack으로 변경할 예정~~
+6. 'look' repo 전용 wiki 에 gulp가이드 만들고 사전준비 내용과 Task 상세내용 설명할 예정.
 
 
 
