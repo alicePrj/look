@@ -5,6 +5,8 @@ const path = require('path');
 const lazypipe = require('lazypipe');
 const sass = require('gulp-sass');
 
+var spritesmith = require('gulp.spritesmith');
+
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
