@@ -6,6 +6,13 @@
 ### 16일 에러 메시지 나오게 설정할것!!!!! notice 랑 plumber!!!!!!!!   ---- 완료!
 ### 17일 gulpfile 초기 var config 에 proferties 정리할 것. autoprefixer 준비!
 
+
+하아.... 18일이나 딴짓하고 ;;; 진척이 없음;;
+spritesmith 준비할것
+
+jekll 블로그 정리 할것!! 왜 진행이 전혀 아니되는것인가?!!!!!
+게을러터져가지고!!!!!!!!!!!!!!!!! 하라고 햏래해해해해해해해햏!!!!! 그만놀아!!!!!
+
 _http://sass-lang.com/guide  --- 중간에 operators에 보면 셀렉터에 article[role="main"]  <--- 요런식으로 되어있는거 참고 할 수 있을것임._
 기본적으로 css와 셀렉터 참조하는 방식이 같음.
 
