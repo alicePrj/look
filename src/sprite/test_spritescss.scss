@@ -1,0 +1,286 @@
+$spritesheet: (
+	name: 'spritesheet',
+	width: 322px/2,
+	height: 274px/2,
+	image: '../img/sp_gfmarket_20160724.png'
+);
+
+$beta_logo: (
+	name: 'beta_logo',
+	offset-x: -158px/2,
+	offset-y: -72px/2,
+	width: 32px/2,
+	height: 20px/2,
+	spritesheet: $spritesheet
+);
+$btn_back: (
+	name: 'btn_back',
+	offset-x: -304px/2,
+	offset-y: -38px/2,
+	width: 18px/2,
+	height: 34px/2,
+	spritesheet: $spritesheet
+);
+$btn_clear_input: (
+	name: 'btn_clear_input',
+	offset-x: -60px/2,
+	offset-y: -116px/2,
+	width: 54px/2,
+	height: 64px/2,
+	spritesheet: $spritesheet
+);
+$btn_close: (
+	name: 'btn_close',
+	offset-x: 0px/2,
+	offset-y: -184px/2,
+	width: 48px/2,
+	height: 48px/2,
+	spritesheet: $spritesheet
+);
+$btn_more: (
+	name: 'btn_more',
+	offset-x: -304px/2,
+	offset-y: 0px/2,
+	width: 18px/2,
+	height: 34px/2,
+	spritesheet: $spritesheet
+);
+$btn_mypage: (
+	name: 'btn_mypage',
+	offset-x: -118px/2,
+	offset-y: -156px/2,
+	width: 45px/2,
+	height: 23px/2,
+	spritesheet: $spritesheet
+);
+$btn_prev: (
+	name: 'btn_prev',
+	offset-x: -88px/2,
+	offset-y: -28px/2,
+	width: 66px/2,
+	height: 64px/2,
+	spritesheet: $spritesheet
+);
+$btn_search_cafe: (
+	name: 'btn_search_cafe',
+	offset-x: 0px/2,
+	offset-y: -116px/2,
+	width: 56px/2,
+	height: 64px/2,
+	spritesheet: $spritesheet
+);
+$btn_svc_info: (
+	name: 'btn_svc_info',
+	offset-x: -304px/2,
+	offset-y: -76px/2,
+	width: 9px/2,
+	height: 16px/2,
+	spritesheet: $spritesheet
+);
+$btn_top: (
+	name: 'btn_top',
+	offset-x: -188px/2,
+	offset-y: -116px/2,
+	width: 86px/2,
+	height: 26px/2,
+	spritesheet: $spritesheet
+);
+$caret_down: (
+	name: 'caret_down',
+	offset-x: -194px/2,
+	offset-y: -72px/2,
+	width: 28px/2,
+	height: 16px/2,
+	spritesheet: $spritesheet
+);
+$checkbox_checked: (
+	name: 'checkbox_checked',
+	offset-x: -52px/2,
+	offset-y: -184px/2,
+	width: 40px/2,
+	height: 40px/2,
+	spritesheet: $spritesheet
+);
+$checkbox_unchecked: (
+	name: 'checkbox_unchecked',
+	offset-x: -96px/2,
+	offset-y: -184px/2,
+	width: 40px/2,
+	height: 40px/2,
+	spritesheet: $spritesheet
+);
+$grafolio_logo: (
+	name: 'grafolio_logo',
+	offset-x: 0px/2,
+	offset-y: 0px/2,
+	width: 300px/2,
+	height: 24px/2,
+	spritesheet: $spritesheet
+);
+$home: (
+	name: 'home',
+	offset-x: -140px/2,
+	offset-y: -184px/2,
+	width: 43px/2,
+	height: 36px/2,
+	spritesheet: $spritesheet
+);
+$ico_buy_gift: (
+	name: 'ico_buy_gift',
+	offset-x: -42px/2,
+	offset-y: -236px/2,
+	width: 38px/2,
+	height: 36px/2,
+	spritesheet: $spritesheet
+);
+$ico_buy_npay: (
+	name: 'ico_buy_npay',
+	offset-x: -158px/2,
+	offset-y: -28px/2,
+	width: 104px/2,
+	height: 40px/2,
+	spritesheet: $spritesheet
+);
+$ico_err: (
+	name: 'ico_err',
+	offset-x: 0px/2,
+	offset-y: -28px/2,
+	width: 84px/2,
+	height: 84px/2,
+	spritesheet: $spritesheet
+);
+$ico_info: (
+	name: 'ico_info',
+	offset-x: -249px/2,
+	offset-y: -184px/2,
+	width: 24px/2,
+	height: 24px/2,
+	spritesheet: $spritesheet
+);
+$ico_npay: (
+	name: 'ico_npay',
+	offset-x: -187px/2,
+	offset-y: -184px/2,
+	width: 58px/2,
+	height: 26px/2,
+	spritesheet: $spritesheet
+);
+$ico_npay_small: (
+	name: 'ico_npay_small',
+	offset-x: -266px/2,
+	offset-y: -28px/2,
+	width: 26px/2,
+	height: 26px/2,
+	spritesheet: $spritesheet
+);
+$ico_share: (
+	name: 'ico_share',
+	offset-x: -163px/2,
+	offset-y: -236px/2,
+	width: 36px/2,
+	height: 32px/2,
+	spritesheet: $spritesheet
+);
+$list_dot: (
+	name: 'list_dot',
+	offset-x: -304px/2,
+	offset-y: -120px/2,
+	width: 6px/2,
+	height: 6px/2,
+	spritesheet: $spritesheet
+);
+$market_logo: (
+	name: 'market_logo',
+	offset-x: -118px/2,
+	offset-y: -116px/2,
+	width: 66px/2,
+	height: 36px/2,
+	spritesheet: $spritesheet
+);
+$naver_logo: (
+	name: 'naver_logo',
+	offset-x: -123px/2,
+	offset-y: -236px/2,
+	width: 36px/2,
+	height: 34px/2,
+	spritesheet: $spritesheet
+);
+$sch_result_tit_after: (
+	name: 'sch_result_tit_after',
+	offset-x: -304px/2,
+	offset-y: -96px/2,
+	width: 10px/2,
+	height: 8px/2,
+	spritesheet: $spritesheet
+);
+$sch_result_tit_before: (
+	name: 'sch_result_tit_before',
+	offset-x: -304px/2,
+	offset-y: -108px/2,
+	width: 10px/2,
+	height: 8px/2,
+	spritesheet: $spritesheet
+);
+$search: (
+	name: 'search',
+	offset-x: -84px/2,
+	offset-y: -236px/2,
+	width: 35px/2,
+	height: 35px/2,
+	spritesheet: $spritesheet
+);
+$sticker_new: (
+	name: 'sticker_new',
+	offset-x: 0px/2,
+	offset-y: -236px/2,
+	width: 38px/2,
+	height: 38px/2,
+	spritesheet: $spritesheet
+);
+
+@mixin sprite-width($sprite) {
+	width: map-get($sprite, 'width');
+}
+
+@mixin sprite-height($sprite) {
+	height: map-get($sprite, 'height');
+}
+
+@mixin sprite-position($sprite) {
+	background-position: map-get($sprite, 'offset-x') map-get($sprite, 'offset-y');
+}
+
+@mixin sprite-image($sprite) {
+	background-image: url(map-get(map-get($sprite, 'spritesheet'), 'image'));
+	background-size: map-get(map-get($sprite, 'spritesheet'), 'width') map-get(map-get($sprite, 'spritesheet'), 'height');
+}
+
+@mixin sprite-extend($sprite) {
+	@extend %#{map-get(map-get($sprite, 'spritesheet'), 'name')};
+}
+
+@mixin sprite($sprite, $extend: true, $image_url: false) {
+	@if $extend == true {
+		@include sprite-extend($sprite);
+	}
+	@if $image_url == true {
+		@include sprite-image();
+	}
+	@include sprite-position($sprite);
+	@include sprite-width($sprite);
+	@include sprite-height($sprite);
+}
+
+%spritesheet {
+	background-image: url(map-get($spritesheet, 'image'));
+	background-size: map-get($spritesheet, 'width') map-get($spritesheet, 'height');
+}
+$spritesheet : map-merge($spritesheet,(sprites: ($beta_logo, $btn_back, $btn_clear_input, $btn_close, $btn_more, $btn_mypage, $btn_prev, $btn_search_cafe, $btn_svc_info, $btn_top, $caret_down, $checkbox_checked, $checkbox_unchecked, $grafolio_logo, $home, $ico_buy_gift, $ico_buy_npay, $ico_err, $ico_info, $ico_npay, $ico_npay_small, $ico_share, $list_dot, $market_logo, $naver_logo, $sch_result_tit_after, $sch_result_tit_before, $search, $sticker_new, )));
+@mixin sprites($sprites) {
+	@each $sprite in $sprites {
+		$sprite-name: map-get($sprite, 'name');
+		.#{$sprite-name} {
+			@include sprite($sprite);
+		}
+	}
+}

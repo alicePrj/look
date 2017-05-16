@@ -1,0 +1,104 @@
+{
+  // Default options
+  'functions': true
+}
+
+{{#block "sprites-comment"}}
+{{/block}}
+{{#block "spritesheet"}}
+${{spritesheet_info.strings.name}}: (
+	name: '{{spritesheet_info.strings.name}}',
+	{{#if options.mobile}}
+	{{spritesheet_info.strings.bare_width}}: {{spritesheet.px.width}}/2,
+	{{spritesheet_info.strings.bare_height}}: {{spritesheet.px.height}}/2,
+	{{else}}
+	{{spritesheet_info.strings.bare_width}}: {{spritesheet.px.width}},
+	{{spritesheet_info.strings.bare_height}}: {{spritesheet.px.height}},
+	{{/if}}
+	{{spritesheet_info.strings.bare_image}}: '{{{spritesheet.escaped_image}}}'
+);
+{{/block}}
+
+{{#block "sprites"}}
+{{#each sprites}}
+${{strings.name}}: (
+	{{strings.bare_name}}: '{{name}}',
+	{{#if ../options.mobile}}
+	{{strings.bare_offset_x}}: {{px.offset_x}}/2,
+	{{strings.bare_offset_y}}: {{px.offset_y}}/2,
+	{{strings.bare_width}}: {{px.width}}/2,
+	{{strings.bare_height}}: {{px.height}}/2,
+	spritesheet: ${{../spritesheet_info.strings.name}}
+	{{else}}
+	{{strings.bare_offset_x}}: {{px.offset_x}},
+	{{strings.bare_offset_y}}: {{px.offset_y}},
+	{{strings.bare_width}}: {{px.width}},
+	{{strings.bare_height}}: {{px.height}},
+	spritesheet: ${{../spritesheet_info.strings.name}}
+	{{/if}}
+);
+{{/each}}
+{{/block}}
+
+{{#block "sprite-functions-comment"}}
+{{/block}}
+{{#block "sprite-functions"}}
+{{#if options.functions}}
+@mixin sprite-width($sprite) {
+	width: map-get($sprite, '{{strings.bare_width}}');
+}
+
+@mixin sprite-height($sprite) {
+	height: map-get($sprite, '{{strings.bare_height}}');
+}
+
+@mixin sprite-position($sprite) {
+	background-position: map-get($sprite, '{{strings.bare_offset_x}}') map-get($sprite, '{{strings.bare_offset_y}}');
+}
+
+@mixin sprite-image($sprite) {
+	background-image: url(map-get(map-get($sprite, 'spritesheet'), '{{spritesheet_info.strings.bare_image}}'));
+	{{#if options.mobile}}
+	background-size: map-get(map-get($sprite, 'spritesheet'), '{{spritesheet_info.strings.bare_width}}') map-get(map-get($sprite, 'spritesheet'), '{{spritesheet_info.strings.bare_height}}');
+	{{/if}}
+}
+
+@mixin sprite-extend($sprite) {
+	@extend %#{map-get(map-get($sprite, 'spritesheet'), 'name')};
+}
+
+@mixin sprite($sprite, $extend: true, $image_url: false) {
+	@if $extend == true {
+		@include sprite-extend($sprite);
+	}
+	@if $image_url == true {
+		@include sprite-image();
+	}
+	@include sprite-position($sprite);
+	@include sprite-width($sprite);
+	@include sprite-height($sprite);
+}
+
+%{{spritesheet_info.strings.name}} {
+	background-image: url(map-get(${{spritesheet_info.strings.name}}, '{{spritesheet_info.strings.bare_image}}'));
+	{{#if options.mobile}}
+	background-size: map-get(${{spritesheet_info.strings.name}}, '{{spritesheet_info.strings.bare_width}}') map-get(${{spritesheet_info.strings.name}}, '{{spritesheet_info.strings.bare_height}}');
+	{{/if}}
+}
+{{/if}}
+{{/block}}
+{{#block "spritesheet-functions-comment"}}
+{{/block}}
+{{#block "spritesheet-functions"}}
+{{#if options.functions}}
+${{spritesheet_info.strings.name}} : map-merge(${{spritesheet_info.strings.name}},({{spritesheet_info.strings.bare_sprites}}: ({{#each sprites}}${{strings.name}}, {{/each}})));
+@mixin sprites($sprites) {
+	@each $sprite in $sprites {
+		$sprite-name: map-get($sprite, '{{strings.bare_name}}');
+		.#{$sprite-name} {
+			@include sprite($sprite);
+		}
+	}
+}
+{{/if}}
+{{/block}}
