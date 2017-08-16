@@ -1,0 +1,22 @@
+/* button scss*/
+.btn_area { text-align: center; }
+
+.btn_area a { display: inline-block; vertical-align: top; }
+
+.btn_area a:first-child { margin-left: 0; }
+
+.u_likeit_button { display: block; text-decoration: none; font-size: 0; }
+
+.u_likeit_button:before { display: inline-block; width: 21px; height: 21px; vertical-align: top; content: ''; }
+
+.u_likeit_button + .u_likeit_layer { margin: 6px 0 0 0; }
+
+.u_likeit_blind { overflow: hidden; position: absolute; top: 0; left: 0; margin: -1px; padding: 0; width: 1px; height: 1px; border: 0; clip: rect(0, 0, 0, 0); }
+
+.u_likeit_text { display: none; margin-left: 7px; font-size: 13px; color: #555; }
+
+.u_likeit_layer { top: auto !important; bottom: 35px; padding: 0 9px 0 8px; border: solid 1px #edf0f4; border-radius: 2px; background-color: #fff; }
+
+.btn_share { position: absolute; top: 26px; right: 16px; width: 40px; height: 25px; border: 1px solid #e7eaed; border-radius: 2px; color: transparent; font-size: 0; }
+
+/*# sourceMappingURL=button.css.map */

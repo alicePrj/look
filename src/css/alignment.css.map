@@ -1,0 +1,1 @@
+{"version":3,"file":"alignment.css","sources":["alignment.scss"],"sourcesContent":["@charset \"utf-8\";\r\n/* alignment scss*/\r\n\r\n.align_left{\r\n    float: left;\r\n}\r\n\r\n.align_right{\r\n    float: right;\r\n}\r\n"],"names":[],"mappings":"AACA,mBAAmB;AAEnB,AAAA,WAAW,CAAA,EACP,KAAK,EAAE,IAAI,GACd;;AAED,AAAA,YAAY,CAAA,EACR,KAAK,EAAE,KAAK,GACf"}
