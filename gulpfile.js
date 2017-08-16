@@ -35,17 +35,17 @@ var paths = {
 var config ={
   browserSync: false,
   notify: true,
-	urlRebase: false
+  urlRebase: false
 }
 
 
-
 var scssOptions = {
-  outputStyle : "expanded",
+  //outputStyle : "expanded",
+  outputStyle : "compact",
   indentType : "tab",
   indentWidth : 1,
-  precision: 6,
-  sourceComments: false
+  precision: 6
+ // sourceComments: false;
   //sourceComments: true
 };
 

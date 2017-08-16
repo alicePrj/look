@@ -1,50 +1,110 @@
-html {
-	font-size: 16PX;
-}
+/* _mixin.scss */
+html { font-size: 16PX; }
 
-p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td, form, fieldset, legend, input, textarea, button, select, figure {
-	margin: 0;
-	padding: 0;
-}
+p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td, form, fieldset, legend, input, textarea, button, select, figure { margin: 0; padding: 0; }
 
-body, input, textarea, select, button, table {
-	font-size: 12px;
-	line-height: 15px;
-}
+body, input, textarea, select, button, table { font-size: 12px; line-height: 15px; }
 
-img {
-	vertical-align: top;
-}
+img { vertical-align: top; border: 0; }
 
-body {
-	margin: 0;
-	padding: 0;
-	color: #ff0000;
-}
+body { margin: 0; padding: 0; color: #111; }
 
-img, fieldset, textarea {
-	border: 0;
-}
+img, fieldset, textarea { border: 0; }
 
-legend {
-	display: none;
-}
+legend { display: none; }
 
-ul, ol {
-	list-style: none;
-}
+ul, ol { list-style: none; }
 
-em, address {
-	font-style: normal;
-}
+em, address { font-style: normal; }
 
-a {
-	color: #ff0000;
-	text-decoration: none;
-}
+a { color: #ff0000; text-decoration: none; }
 
-hr {
-	display: none;
-}
+hr { display: none; }
+
+/* card scss*/
+.card_content { width: 400px; }
+
+.group_card { background-color: #fff; border: 1px solid #eee; }
+
+.group_card .info_area { position: relative; height: 35px; margin: 0; padding: 30px 15px 15px; }
+
+.group_card .info_area a { display: block; }
+
+.group_card .info_area img { width: 35px; height: 35px; display: block; position: relative; }
+
+.group_card .info_area img:after { position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 1000; display: block; border-radius: 50%; border: 1px solid rgba(0, 0, 0, 0.04); content: ''; }
+
+.group_card .info_area .thumb_box { background-position: 0px -81px; width: 35px; height: 35px; float: left; margin-right: 9px; }
+
+.group_card .info_area:after { display: block; clear: both; content: ''; }
+
+.group_card .info_area .info_box { overflow: hidden; margin: 0; }
+
+.group_card .info_area .info_box .art_subject { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; font-size: 17px; color: #111; line-height: 20px; }
+
+.group_card .info_area .info_box .artist_name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: inline-block; max-width: 100%; font-size: 13px; color: #aaa; line-height: 19px; }
+
+.group_card .info_area .info_box:after { display: block; clear: both; content: ''; }
+
+.group_card .btn_area { height: 53px; padding: 0 8px 0 15px; }
+
+.group_card .btn_area:after { display: block; clear: both; content: ''; }
+
+.group_card .btn_area .btn_share { position: relative; top: auto; right: auto; width: auto; height: auto; border-radius: 0; display: inline-block; padding: 15px 7px; border: none; background: none; vertical-align: top; outline: none; cursor: pointer; }
+
+.group_card .btn_area .btn_share .ico { display: block; width: 25px; height: 21px; }
+
+.group_card .art_area.item_sound { display: block; height: 300px; }
+
+.group_card .art_area.item_sound .img_box { display: table-cell; position: relative; width: 100%; vertical-align: middle; text-align: center; }
+
+.group_card .art_area.item_sound .img_box:after { position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.1); content: ''; }
+
+.group_card .art_area.item_sound .img_box img { width: 110px; height: 110px; display: inline-block; position: relative; z-index: 10; box-shadow: 0px 13px 40px 0 rgba(0, 0, 0, 0.2); -webkit-box-shadow: 0px 13px 40px 0 rgba(0, 0, 0, 0.2); }
+
+.group_card .art_area .img_box { display: block; overflow: hidden; }
+
+.group_card .art_area .img_ef_blur { display: block; position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: none; background-size: 400%; background-position: center; filter: blur(40px); -webkit-filter: blur(40px); -moz-filter: blur(40px); -o-filter: blur(40px); }
+
+.group_card .art_area img { display: block; width: 100%; vertical-align: top; }
+
+/* button scss*/
+.btn_area { text-align: center; }
+
+.btn_area a { display: inline-block; vertical-align: top; }
+
+.btn_area a:first-child { margin-left: 0; }
+
+.u_likeit_button { display: block; text-decoration: none; font-size: 0; }
+
+.u_likeit_button:before { display: inline-block; width: 21px; height: 21px; vertical-align: top; content: ''; }
+
+.u_likeit_button + .u_likeit_layer { margin: 6px 0 0 0; }
+
+.u_likeit_blind { overflow: hidden; position: absolute; top: 0; left: 0; margin: -1px; padding: 0; width: 1px; height: 1px; border: 0; clip: rect(0, 0, 0, 0); }
+
+.u_likeit_text { display: none; margin-left: 7px; font-size: 13px; color: #555; }
+
+.u_likeit_layer { top: auto !important; bottom: 35px; padding: 0 9px 0 8px; border: solid 1px #edf0f4; border-radius: 2px; background-color: #fff; }
+
+.btn_share { position: absolute; top: 26px; right: 16px; width: 40px; height: 25px; border: 1px solid #e7eaed; border-radius: 2px; color: transparent; font-size: 0; }
+
+/* alignment scss*/
+.align_left { float: left; }
+
+.align_right { float: right; }
+
+/* component scss*/
+.hide { display: none !important; }
+
+.likeit { display: inline-block; position: relative; }
+
+.u_likeit_button { height: 21px; font-family: arial, sans-serif; font-weight: 500; line-height: 21px; color: #222; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -o-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; }
+
+.u_likeit_button + .u_likeit_layer { z-index: 3000; display: none; position: absolute; top: 100%; white-space: nowrap; font-size: 0; list-style: none; }
+
+.thumb_book:before { background-position: 0px -214px; width: 6px; height: 100px; position: absolute; top: 0; left: 2px; bottom: 0; content: ''; }
+
+.thumb_book img { display: block; width: 100%; vertical-align: top; }
 
 /*# sourceMappingURL=main.css.map */

@@ -1,6 +1,11 @@
 
 
-@mixin clearfix() {
+@charset "UTF-8";
+/* _mixin.scss */
+
+
+
+@mixin clearfixtable() {
   &:before,
   &:after {
     content: " ";
@@ -21,6 +26,43 @@
   overflow: hidden;
 }
 
+@mixin absolute_LT($lft, $top) {
+	position: absolute;
+	left: $lft;
+	top: $top;
+}
+
+@mixin absolute_LB($lft, $btm) {
+	position: absolute;
+	left: $lft;
+	bottom: $btm;
+}
+
+@mixin absolute_RT($rgt, $top) {
+	position: absolute;
+	right: $rgt;
+	top: $top;
+}
+
+@mixin absolute_RB($rgt, $btm) {
+	position: absolute;
+	right: $rgt;
+	bottom: $btm;
+}
+
+@mixin absolute_LRTB($lft, $rgt, $top, $btm) {
+	position: absolute;
+	left: $lft;
+	right: $rgt;
+	top: $top;
+	bottom: $btm;
+}
+
+@mixin size($width, $height) {
+	width: $width;
+	height: $height;
+}
+
 @mixin ellipsis() {
   white-space: nowrap;
   overflow: hidden;
@@ -35,4 +77,47 @@
         width: ceil(($ieimgw / 2));
         height: ceil(($ieimgh / 2));
     }
+}
+
+
+@mixin opacity($opacity) {
+	opacity: $opacity;
+	$opacity-ie: $opacity * 100;
+	filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+@mixin dimmed($color, $opacity) {
+	background-color: $color;
+	@include opacity($opacity);
+}
+
+@mixin centerBoth($width, $height) {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: $width + px;
+	height: $height + px;
+	margin-top: -($height / 2) + px;
+	margin-left: -($width / 2) + px;
+}
+
+@mixin clearfix() {
+	*zoom: 1;
+	&:after {
+		display: block;
+		clear: both;
+		content: '';
+	}
+}
+
+
+
+@mixin regular_font {
+  font-weight: normal;
+  font-family: '나눔고딕',NanumGothic,'맑은고딕',MalgunGothic, HelveticaNeue, AppleSDGothicNeo-Regular,sans-serif;
+}
+
+@mixin bold_font {
+  font-weight: bold;
+  font-family: '나눔고딕',NanumGothic,'맑은고딕',MalgunGothic, AppleSDGothicNeo-Bold, AppleSDGothicNeo-Medium, Helvetica, sans-serif;
 }

@@ -15,12 +15,14 @@ body, input, textarea, select, button, table {
 
 img {
   vertical-align: top;
+  border:0;
 }
 
 body {
   margin: 0;
   padding: 0;
-  color: #ff0000;
+  color:#111;
+ // color: #ff0000;
 }
 
 img, fieldset, textarea {
