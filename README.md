@@ -2,7 +2,7 @@
 
 ## build 방법
 -- window : cmd -> local repo 경로로 이동 'gulp'  치면 gulp default task 실행 됨.
-_-- 이후 dist폴더로 복사되는 dev task 추가로 생성할 예정_
+_-- 이후 dist폴더로 복사되는 dev task 추가로 생성할 예정_ fnfnfnffmn
 
 
 ### 개발환경
