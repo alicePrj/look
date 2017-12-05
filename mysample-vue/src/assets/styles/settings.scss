@@ -1,0 +1,325 @@
+@import '~milligram-scss/dist/_Color';
+@import './distance';
+
+$main-color-normal: #2c3e50;
+$background-primary: #f5f6f7;
+$border-color-primary: #d1d1d1;
+$border-color-secondary: #aaaaaa;
+$button-red: #cd5c5c;
+
+.column-15 {
+  max-width: 15%;
+}
+
+.background {
+  background-color: $background-primary;
+}
+
+.overflow-ellipsis {
+  text-overflow: ellipsis;
+
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.arrow-down {
+  display: inline-block;
+  vertical-align: middle;
+
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid $color-primary;
+}
+
+.arrow-up {
+  display: inline-block;
+  vertical-align: middle;
+
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid $color-primary;
+}
+
+.arrow-right:before {
+  content: "";
+  border-color: transparent black;
+  border-style: solid;
+  border-width: 0.35em 0 0.35em 0.45em;
+  display: inline-block;
+  height: 0;
+  width: 0;
+  left: 0;
+  position: relative;
+}
+
+table.template {
+  font-size: 1.2rem;
+  display: block;
+  table-layout: fixed;
+  min-width: 100%;
+  max-height: 60rem;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.no-flex {
+  flex-direction: inherit;
+}
+
+.warning-border {
+  border: 1px solid red;
+}
+
+.deactivated, .deactivated:focus, .deactivated:hover {
+  background-color: gray !important;
+  border: 1px solid gray !important;
+  cursor: default !important;
+}
+
+.deactivated-border, .deactivated-border:focus, .deactivated-border:hover {
+  border-color: gray !important;
+  cursor: default !important;
+  color: gray !important;
+}
+
+.margin-auto {
+  margin: 0 auto;
+}
+
+.rounding-corner {
+  $rounding-size: 5px;
+  -moz-border-radius: $rounding-size;
+  -webkit-border-radius: $rounding-size;
+  border-radius: $rounding-size;
+}
+
+/*
+  Referred to this link to implement vertical middle
+  https://stackoverflow.com/questions/396145/how-to-vertically-center-a-div-for-all-browsers
+*/
+.popup-container {
+  position: fixed;
+  display: table;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding: 0;
+  background-color: rgba(128, 128, 128, 0.5);
+}
+
+.popup-middle-container {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.center-popup {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h1 {
+  font-size: 2.2rem;
+  letter-spacing: -.08rem;
+  line-height: 1.35;
+}
+
+h2 {
+  font-size: 1.8rem !important;
+  line-height: 1.25 !important;
+}
+
+h3 {
+  font-size: 1.6rem !important;
+  letter-spacing: 0 !important;
+  line-height: 1.4 !important;
+}
+
+h4 {
+  font-size: 1.6rem !important;
+  letter-spacing: 0 !important;
+  line-height: 1.4 !important;
+}
+
+h5 {
+  font-size: 1.6rem !important;
+  letter-spacing: 0 !important;
+  line-height: 1.4 !important;
+}
+
+h6 {
+  font-size: 1.6rem !important;
+  letter-spacing: 0 !important;
+  line-height: 1.4 !important;
+}
+
+.invalid {
+  opacity: .65;
+}
+
+.row {
+  margin-left: 0 !important;
+  & .column {
+    padding: 0 1.0rem !important;
+  }
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  & .empty {
+    flex-grow: 1;
+  }
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+.flex-grow-2 {
+  flex-grow: 2;
+}
+
+.flex-grow-3 {
+  flex-grow: 3;
+}
+
+.position-static {
+  position: static;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.position-relative-z-index-1 {
+  position: relative;
+  z-index: 1;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+.border-color {
+  border: 1px solid $border-color-primary;
+}
+
+.button-red {
+  background-color: $button-red;
+  border-color: $button-red;
+}
+
+.button-gray {
+  background-color: $border-color-secondary;
+  border-color: $border-color-secondary;
+}
+
+.text-color-normal {
+  color: $main-color-normal;
+}
+
+.text-color-red {
+  color: $button-red;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.p-description-color {
+  color: $border-color-secondary;
+}
+
+.normalPre {
+  background: none;
+  border-left: 0;
+  font-family: inherit;
+  @extend .my-0;
+}
+
+.normalLabel {
+  display: inline;
+  font-weight: 400;
+  @extend .pointer;
+}
+
+.normalTable {
+  width: 100%;
+  font-size: 1.4rem;
+  tr {
+    width: 1%;
+    white-space: nowrap;
+    th, td {
+      font-weight: normal;
+      border-bottom-width: 0;
+      @extend .pt-2;
+      @extend .pb-2;
+    }
+  }
+}
+
+.width20 {
+  width: 20%;
+}
+
+.width60 {
+  width: 60%;
+}
+
+.width80 {
+  width: 80%;
+}
+
+// Start tab
+.tab {
+  border-bottom: 1px solid $color-primary;
+  margin-bottom: 2rem;
+  margin-left: 0;
+}
+.db-tab {
+  position: relative;
+  top: 1px;
+  width: 100%;
+  margin-bottom: 0;
+  border-radius: 0;
+  padding: 0;
+  float: left;
+  text-transform: none !important;
+  font-size: 1.4rem;
+}
+.tab-selected {
+  border: 1px solid $color-primary !important;
+  border-bottom-color: white !important;
+}
+// End tab
+
+// Start Layer Popup
+.popup-flex-center {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  & .popup-content {
+    border: 3px solid $color-secondary;
+    background-color: white;
+    @extend .mt-5;
+    @extend .p-4;
+  }
+}
+
+// End Layer Popup
+.viewport-scroll {
+  /*
+      Enable scrolling when height is larger than viewport height
+   */
+  max-height: 100vh;
+  overflow-y: auto;
+}
