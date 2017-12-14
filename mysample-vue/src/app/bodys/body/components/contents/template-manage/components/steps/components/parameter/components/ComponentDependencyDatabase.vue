@@ -15,7 +15,7 @@
               <th class="title"><label class="normalLabel" for="dependencyDatabaseParameterInput">Parameter</label></th>
               <td class="input_text width80">
                 <input type="text" class="mb-0" id="dependencyDatabaseParameterInput" placeholder="@database"
-                  v-model="templateParameter.paramAttr.tableValue0">
+                  v-model="templateParameter.paramAttr.databaseValue0">
               </td>
             </tr>
           </tbody>
@@ -33,7 +33,7 @@
               <th class="title"><label class="normalLabel" for="dependencyDatabaseSpecificInput">Specific DB</label></th>
               <td class="input_text width80">
                 <input type="text" class="mb-0" id="dependencyDatabaseSpecificInput" placeholder="Database명을 입력해 주세요."
-                  v-model="templateParameter.paramAttr.tableValue1">
+                  v-model="templateParameter.paramAttr.databaseValue1">
               </td>
             </tr>
           </tbody>

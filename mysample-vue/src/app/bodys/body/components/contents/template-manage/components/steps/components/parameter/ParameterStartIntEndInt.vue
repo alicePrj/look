@@ -1,10 +1,10 @@
 <template>
   <div>
-    <component-user-display placeholderEN="Value"></component-user-display>
+    <component-user-display placeholderEN="Value" :templateParameter="templateParameter"></component-user-display>
     <hr>
-    <component-int-between></component-int-between>
+    <component-int-between :templateParameter="templateParameter"></component-int-between>
     <hr>
-    <component-use-ui paramaterType="start_int~end_int"></component-use-ui>
+    <component-use-ui paramaterType="startInt~endInt"></component-use-ui>
   </div>
 </template>
 
@@ -14,10 +14,35 @@ import ComponentIntBetween from './components/ComponentIntBetween.vue'
 import ComponentUseUi from './components/ComponentUseUi.vue'
 
 export default {
+  props: {
+    templateParameter: {
+      type: Object
+    }
+  },
+  watch: {
+    templateParameter: function () {
+      this.init()
+    }
+  },
+  methods: {
+    init () {
+      if (!this.templateParameter.paramAttr) {
+        this.templateParameter.paramAttr = {
+          minValue: '',
+          minValue_: '',
+          maxValue: '',
+          maxValue_: ''
+        }
+      }
+    }
+  },
   components: {
     ComponentUserDisplay,
     ComponentIntBetween,
     ComponentUseUi
+  },
+  created () {
+    this.init()
   }
 }
 </script>

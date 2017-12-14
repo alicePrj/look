@@ -44,11 +44,16 @@ export const util = {
     if (!value) return 0
     return value.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   },
-  /* numberOnlyEvent (e) {
-    if ('0123456789'.indexOf(e.key) < 0) {
+  numberOnlyEvent (e) {
+    if ('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'.indexOf(e.key) >= 0) {
       e.preventDefault()
+      return false
     }
-  }, */
+    /* if (e.keyCode > 128) {
+      e.preventDefault()
+      return false
+    } */
+  },
   numberWithCommas (value) {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   },

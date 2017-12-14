@@ -7,13 +7,13 @@ import mockCategoryGet from '@mock/category/CategoryGet'
 
 export const categoryModule = {
   state: {
-    _useMock: {
+    /* _useMock: {
       [types.CATEGORY_LIST_GET]: false,
       [types.CATEGORY_GET]: false,
       [types.CATEGORY_SAVE]: false,
       [types.CATEGORY_DELETE]: false,
       [types.CATEGORY_ORDER]: false
-    },
+    }, */
     _categoryList: {},
     _category: {}
   },
@@ -35,8 +35,10 @@ export const categoryModule = {
   }, */
   actions: {
     [types.CATEGORY_LIST_GET] ({ commit }) {
-      const { state } = this._modules.root._children.category
-      if (state._useMock[types.CATEGORY_LIST_GET]) {
+      /* const { state } = this._modules.root._children.category
+      if (state._useMock[types.CATEGORY_LIST_GET]) { */
+      const isMock = false
+      if (isMock === true) {
         commit(types.CATEGORY_LIST_GET, mockCategoryListGet.result)
       } else {
         http.getPromise('/category/list').then(res => {
@@ -45,8 +47,8 @@ export const categoryModule = {
       }
     },
     [types.CATEGORY_GET] ({ commit }, categoryId) {
-      const { state } = this._modules.root._children.category
-      if (state._useMock[types.CATEGORY_GET]) {
+      const isMock = false
+      if (isMock === true) {
         commit(types.CATEGORY_GET, mockCategoryGet.result)
       } else {
         http.getPromise('/category/' + categoryId).then(res => {
@@ -54,9 +56,9 @@ export const categoryModule = {
         })
       }
     },
-    [types.CATEGORY_SAVE] ({ ommit }, self) {
-      const { state } = this._modules.root._children.category
-      if (state._useMock[types.CATEGORY_SAVE]) {
+    [types.CATEGORY_SAVE] ({ commit }, self) {
+      const isMock = false
+      if (isMock === true) {
         util.toastr().success('저장 배포 되었습니다.')
         self.$router.push({name: 'category-intro'})
       } else {
@@ -90,9 +92,9 @@ export const categoryModule = {
         })
       }
     },
-    [types.CATEGORY_DELETE] ({ ommit }, self) {
-      const { state } = this._modules.root._children.category
-      if (state._useMock[types.CATEGORY_DELETE]) {
+    [types.CATEGORY_DELETE] ({ commit }, self) {
+      const isMock = false
+      if (isMock === true) {
         util.toastr().success('삭제 되었습니다.')
         self.$router.push({name: 'category-intro'})
       } else {
@@ -113,9 +115,9 @@ export const categoryModule = {
         })
       }
     },
-    [types.CATEGORY_ORDER] ({ ommit }, self) {
-      const { state } = this._modules.root._children.category
-      if (state._useMock[types.CATEGORY_ORDER]) {
+    [types.CATEGORY_ORDER] ({ commit }, self) {
+      const isMock = false
+      if (isMock === true) {
         util.toastr().success('수정 배포 되었습니다.')
       } else {
         const newOrder = []

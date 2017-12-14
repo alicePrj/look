@@ -6,13 +6,29 @@
       <table class="normalTable">
         <tbody>
           <tr>
-            <td class="input_text width80"><input type="text" class="mb-0" title="dateRange" placeholder="7"></td>
+            <td class="input_text width80"><input type="text" class="mb-0" title="dateRange" placeholder="7"
+              v-model="templateParameter.paramAttr.range" @keydown="numberOnlyEvent($event)"></td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 </template>
+
+<script>
+import { util } from '@/shared/utils/util'
+
+export default {
+  props: {
+    templateParameter: {
+      type: Object
+    }
+  },
+  methods: {
+    numberOnlyEvent: util.numberOnlyEvent
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 @import "~@/assets/styles/settings.scss";

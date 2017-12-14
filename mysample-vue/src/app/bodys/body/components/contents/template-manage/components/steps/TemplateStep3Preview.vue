@@ -19,47 +19,25 @@
             </p>
             <table>
               <tbody>
-                <tr>
+                <tr v-for="(templateParameter, key) in template.templateParameters" :key="key">
                   <th class="title">
                     <div class="flex">
                       <div>
-                        서비스
+                        {{getDisplayName(templateParameter)}}
                         <icon class="question-icon" name="question-circle-o" scale="1"></icon>
                       </div>
                       <div class="empty"></div>
                     </div>
                   </th>
                   <td class="input_text">
-                    <select class="mb-0" title="서비스">
-                      <option>LINE Pokopoko</option>
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <th class="title">
-                    <div class="flex">
-                      <div>
-                        마지막 로그인 날짜
-                      </div>
-                      <div class="empty"></div>
-                    </div>
-                  </th>
-                  <td class="input_text"><input type="text" class="mb-0" title="마지막 로그인 날짜" placeholder="" value="2017-08-05"></td>
-                </tr>
-                <tr>
-                  <th class="title">
-                    <div class="flex">
-                      <div>
-                        추출 기준
-                        <icon class="question-icon" name="question-circle-o" scale="1"></icon>
-                      </div>
-                      <div class="empty"></div>
-                    </div>
-                  </th>
-                  <td class="input_text">
-                    <select class="mb-0" title="추출 기준">
-                      <option>최근 로그인 순으로</option>
-                    </select>
+                    <parameter-preview-database v-if="'@database' === templateParameter.paramType.toLowerCase()" :templateParameter="templateParameter"></parameter-preview-database>
+                    <parameter-preview-table v-if="'@table' === templateParameter.paramType.toLowerCase()" :templateParameter="templateParameter" :dependencyDatabase="getDependencyDatabase(templateParameter, 'table')"></parameter-preview-table>
+                    <parameter-preview-column v-if="'@column' === templateParameter.paramType.toLowerCase()" :templateParameter="templateParameter" :dependencyDatabase="getDependencyDatabase(templateParameter, 'column')" :dependencyTable="getDependencyTable(templateParameter)"></parameter-preview-column>
+                    <parameter-preview-code v-if="'@code' === templateParameter.paramType.toLowerCase()" :templateParameter="templateParameter" :dependencyDatabase="getDependencyDatabase(templateParameter, 'code')"></parameter-preview-code>
+                    <parameter-preview-int v-if="'@int' === templateParameter.paramType.toLowerCase()" :templateParameter="templateParameter"></parameter-preview-int>
+                    <parameter-preview-string v-if="'@string' === templateParameter.paramType.toLowerCase()" :templateParameter="templateParameter" :lang="lang"></parameter-preview-string>
+                    <parameter-preview-start-int-end-int v-if="'@startInt~@endInt'.toLowerCase() === templateParameter.paramType.toLowerCase()" :templateParameter="templateParameter"></parameter-preview-start-int-end-int>
+                    <parameter-preview-y-n v-if="'@yn' === templateParameter.paramType.toLowerCase()" :templateParameter="templateParameter" :lang="lang"></parameter-preview-y-n>
                   </td>
                 </tr>
               </tbody>
@@ -109,20 +87,22 @@
             <div class="flex">
               <div class="empty"></div>
               <div>
-                <input type="button" class="button button-red mb-2" value="Query Check">
+                <span class="position-relative" id="spinnerCheck">
+                  <input type="button" class="button button-red mb-2" value="Query Check" @click="queryCheck('spinnerCheck')">
+                </span>
               </div>
             </div>
           </div>
         </div>
       </div>
       <hr>
-      <div>
+      <div :class="{divCheckQueryeditor: !templateQueryCheck}">
         <div class="flex mb-5">
           <h4 class="mb-0 mr-5">Query 확인</h4>
         </div>
         <div class="px-5 mb-4"><textarea id="queryeditor" title="queryeditor"></textarea></div>
       </div>
-      <hr>
+      <hr :class="{'d-none': !templateQueryCheck}">
       <div class="flex px-5">
         <p class="mb-0">조건영역 화면과 Query 확인 후 . 다음 단계로 진행해 주세요.</p>
         <div class="empty"></div>
@@ -137,9 +117,17 @@
 
 <script>
 import { mapState } from 'vuex'
-import { cloneDeep } from 'lodash'
+import { map, cloneDeep, findIndex } from 'lodash'
 import * as types from '@/shared/stores/types'
 import TemplateStepBanner from './components/TemplateStepBanner.vue'
+import ParameterPreviewDatabase from './components/parameterPreview/ParameterPreviewDatabase.vue'
+import ParameterPreviewTable from './components/parameterPreview/ParameterPreviewTable.vue'
+import ParameterPreviewColumn from './components/parameterPreview/ParameterPreviewColumn.vue'
+import ParameterPreviewCode from './components/parameterPreview/ParameterPreviewCode.vue'
+import ParameterPreviewInt from './components/parameterPreview/ParameterPreviewInt.vue'
+import ParameterPreviewString from './components/parameterPreview/ParameterPreviewString.vue'
+import ParameterPreviewStartIntEndInt from './components/parameterPreview/ParameterPreviewStartIntEndInt.vue'
+import ParameterPreviewYN from './components/parameterPreview/ParameterPreviewYN.vue'
 import Icon from 'vue-awesome/components/Icon.vue'
 import 'vue-awesome/icons/exclamation-circle'
 import 'vue-awesome/icons/question-circle-o'
@@ -151,22 +139,45 @@ require('codemirror/theme/dracula.css')
 require('promise.prototype.finally').shim()
 
 export default {
+  components: {
+    TemplateStepBanner,
+    ParameterPreviewDatabase,
+    ParameterPreviewTable,
+    ParameterPreviewColumn,
+    ParameterPreviewCode,
+    ParameterPreviewInt,
+    ParameterPreviewString,
+    ParameterPreviewStartIntEndInt,
+    ParameterPreviewYN,
+    Icon
+  },
   data () {
     return {
-      template: {}
+      template: {
+        templateParameters: []
+      },
+      templateQueryCheck: ''
     }
   },
   watch: {
     apiTemplate: function (template) {
       this.setTemplate(template)
+    },
+    apiTemplateQueryCheck: function (templateQueryCheck) {
+      this.templateQueryCheck = templateQueryCheck
+      this.editor.setValue(templateQueryCheck)
     }
   },
   computed: {
     ...mapState({
-      apiTemplate: state => state.template._template
+      apiTemplate: state => state.template._template,
+      apiTemplateQueryCheck: state => state.template._templateQueryCheck
     }),
     templateId () {
       return Number(this.$route.params.templateId)
+    },
+    lang () {
+      return this.$route.params.lang
     }
   },
   methods: {
@@ -174,6 +185,9 @@ export default {
       this.templateOri = {
         ...template
       }
+      map(this.templateOri.templateParameters, (templateParameter, key) => {
+        templateParameter.paramAttribute = {}
+      })
       this.template = cloneDeep(this.templateOri)
     },
     goBack () {
@@ -181,6 +195,10 @@ export default {
     },
     goNextStep () {
       this.$router.push({name: 'template-step4', params: {templateId: this.templateId, lang: 'EN'}})
+    },
+    queryCheck (spinnerId) {
+      this.spinnerId = spinnerId
+      this.$store.dispatch(types.TEMPLATE_PARAMETER_QUERY_CHECK, this)
     },
     createEditor () {
       let queryTextArea = document.getElementById('queryeditor')
@@ -190,22 +208,37 @@ export default {
         autofocus: false,
         lineWrapping: true
       })
-      // Set initial query text on editor
-      /* this.editor.setValue(this.query)
-      this.editor.setCursor(this.query.length)
-      this.editor.on('changes', this.queryChanged) */
-      // Map 'tab' key to move focus on 'run' button
-      /* let vm = this
-      this.editor.setOption('extraKeys', {
-        Tab: cm => vm.$refs.runBtn.focus()
-      }) */
-      this.editor.setValue('--test query\nSELECT * FROM oap_real_hbaccess WHERE dt=\'20170428\' limit 10\n\n')
       this.editor.setOption('theme', 'dracula')
+      // this.editor.setOption('readOnly', true)
+    },
+    getDisplayName (templateParameter) {
+      if (this.lang === 'KR' && templateParameter.paramNmKr) {
+        return templateParameter.paramNmKr
+      } else if (this.lang === 'JP' && templateParameter.paramNmJp) {
+        return templateParameter.paramNmJp
+      } else {
+        return templateParameter.paramNmEn
+      }
+    },
+    getDependencyDatabase (templateParameter, from) {
+      const noDependency = { paramAttribute: { databaseValue: 'noDependency' } }
+      const notFoundDependency = { paramAttribute: { databaseValue: '' } }
+      const comp1 = from === 'column' ? 2 : 1
+      if (templateParameter.paramAttr.dependencyType === comp1) {
+        return noDependency
+      }
+      const databaseParameter = this.template.templateParameters[findIndex(this.template.templateParameters, ['paranmInquery', templateParameter.paramAttr.databaseValue])] || notFoundDependency
+      return databaseParameter
+    },
+    getDependencyTable (templateParameter) {
+      const noDependency = { paramAttribute: { tableValue: 'noDependency' } }
+      const notFoundDependency = { paramAttribute: { tableValue: '' } }
+      if (templateParameter.paramAttr.dependencyType !== 1) {
+        return noDependency
+      }
+      const databaseParameter = this.template.templateParameters[findIndex(this.template.templateParameters, ['paranmInquery', templateParameter.paramAttr.tableValue])] || notFoundDependency
+      return databaseParameter
     }
-  },
-  components: {
-    TemplateStepBanner,
-    Icon
   },
   created () {
     this.$store.dispatch(types.TEMPLATE_GET, this.templateId)
@@ -277,5 +310,14 @@ form {
   position: absolute;
   top: 4px;
   left: 0;
+}
+
+.divCheckQueryeditor {
+  position: absolute;
+  top: -1000px;
+  left: 0;
+  width: 100%;
+  height: 11rem;
+  overflow: hidden;
 }
 </style>

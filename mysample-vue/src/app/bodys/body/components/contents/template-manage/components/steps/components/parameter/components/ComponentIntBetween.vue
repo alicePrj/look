@@ -9,13 +9,13 @@
             <th class="title"><label class="normalLabel" for="intMin">Min</label></th>
             <td class="input_text">
               <input type="text" class="mb-0" id="intMin" placeholder="0"
-                v-model="templateParameter.paramAttr.minValue_" @keyup="checkNumberCommas(templateParameter.paramAttr, 'minValue_')">
+                v-model="templateParameter.paramAttr.minValue_" @keydown="numberOnlyEvent($event)" @keyup="checkNumberCommas(templateParameter.paramAttr, 'minValue_')">
             </td>
             <td class="width20 text-center">~</td>
             <th class="title"><label class="normalLabel" for="intMax">Max</label></th>
             <td class="input_text">
               <input type="text" class="mb-0" id="intMax" placeholder=""
-                v-model="templateParameter.paramAttr.maxValue_" @keyup="checkNumberCommas(templateParameter.paramAttr, 'maxValue_')">
+                v-model="templateParameter.paramAttr.maxValue_" @keydown="numberOnlyEvent($event)" @keyup="checkNumberCommas(templateParameter.paramAttr, 'maxValue_')">
             </td>
           </tr>
         </tbody>
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { util } from '@/shared/utils/util'
 import { common } from '@/shared/utils/common'
 
 export default {
@@ -34,6 +35,7 @@ export default {
     }
   },
   methods: {
+    numberOnlyEvent: util.numberOnlyEvent,
     checkNumberCommas: common.checkNumberCommas
   }
 }

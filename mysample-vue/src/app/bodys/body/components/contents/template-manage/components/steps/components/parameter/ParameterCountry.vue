@@ -1,8 +1,8 @@
 <template>
   <div>
-    <component-user-display placeholderEN="Country"></component-user-display>
+    <component-user-display placeholderEN="Country" :templateParameter="templateParameter"></component-user-display>
     <hr>
-    <component-filter></component-filter>
+    <component-filter :templateParameter="templateParameter"></component-filter>
     <hr>
     <component-use-ui paramaterType="country"></component-use-ui>
   </div>
@@ -14,10 +14,32 @@ import ComponentFilter from './components/ComponentFilter.vue'
 import ComponentUseUi from './components/ComponentUseUi.vue'
 
 export default {
+  props: {
+    templateParameter: {
+      type: Object
+    }
+  },
+  watch: {
+    templateParameter: function () {
+      this.init()
+    }
+  },
+  methods: {
+    init () {
+      if (!this.templateParameter.paramAttr) {
+        this.templateParameter.paramAttr = {
+          moreOption: false
+        }
+      }
+    }
+  },
   components: {
     ComponentUserDisplay,
     ComponentFilter,
     ComponentUseUi
+  },
+  created () {
+    this.init()
   }
 }
 </script>

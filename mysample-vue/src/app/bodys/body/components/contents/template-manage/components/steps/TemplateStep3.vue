@@ -26,11 +26,11 @@
               <ul class="mb-0 position-relative" id="spinnerParameter">
                 <draggable v-model="parameters" :options="dragOptions" @start="drag=true" @end="drag=false">
                   <li v-for="(_parameter, key) in parameters" :key="key">
-                    <router-link v-bind:to="{name: 'template-step3', params: {templateId: templateId, parameter: _parameter.paramType}}" activeClass="active" exact>
+                    <router-link v-bind:to="{name: 'template-step3', params: {templateId: templateId, parameter: _parameter.paranmInquery}}" activeClass="active" exact>
                       <div>
                         <icon class="circle-icon" v-if="templateOri.templateParameters[key].paramAttr" name="check-circle" scale="1"></icon>
                         <icon class="circle-icon" v-if="!templateOri.templateParameters[key].paramAttr" name="times-circle" scale="1"></icon>
-                        <span>{{_parameter.paramType}}</span>
+                        <span>{{_parameter.paranmInquery}}</span>
                       </div>
                     </router-link>
                   </li>
@@ -45,21 +45,23 @@
               <parameter-column v-if="parameterSelect('@column')" :templateParameter="template.templateParameters[parameterFindIndex()]"></parameter-column>
               <parameter-code v-if="parameterSelect('@code')" :templateParameter="template.templateParameters[parameterFindIndex()]"></parameter-code>
               <parameter-int v-if="parameterSelect('@int')" :templateParameter="template.templateParameters[parameterFindIndex()]"></parameter-int>
-              <parameter-string v-if="parameter.toLowerCase() === '@string'"></parameter-string>
-              <parameter-start-int-end-int v-if="parameter.toLowerCase() === '@start_int~@end_int'"></parameter-start-int-end-int>
-              <parameter-y-n v-if="parameter.toLowerCase() === '@yn'"></parameter-y-n>
-              <parameter-inequality v-if="parameter.toLowerCase() === '@><'"></parameter-inequality>
-              <parameter-gamecode v-if="parameter.toLowerCase() === '@gamecode'"></parameter-gamecode>
-              <parameter-usertype v-if="parameter.toLowerCase() === '@usertype'"></parameter-usertype>
-              <parameter-order v-if="parameter.toLowerCase() === '@order'"></parameter-order>
-              <parameter-custom v-if="parameter.toLowerCase() === '@custom'"></parameter-custom>
-              <parameter-date v-if="parameter.toLowerCase() === '@date'"></parameter-date>
-              <parameter-start-date-end-date v-if="parameter.toLowerCase() === '@start_date~@end_date'"></parameter-start-date-end-date>
-              <parameter-start-time-end-time v-if="parameter.toLowerCase() === '@start_time~@end_time'"></parameter-start-time-end-time>
-              <parameter-country v-if="parameter.toLowerCase() === '@country'"></parameter-country>
-              <parameter-os v-if="parameter.toLowerCase() === '@os'"></parameter-os>
-              <parameter-login-type v-if="parameter.toLowerCase() === '@login_type'"></parameter-login-type>
-              <parameter-update-table v-if="parameter.toLowerCase() === '@update_table'"></parameter-update-table>
+              <parameter-string v-if="parameterSelect('@string')" :templateParameter="template.templateParameters[parameterFindIndex()]"></parameter-string>
+              <parameter-start-int-end-int v-if="parameterSelect('@startInt~@endInt')" :templateParameter="template.templateParameters[parameterFindIndex()]"></parameter-start-int-end-int>
+              <parameter-y-n v-if="parameterSelect('@yn')" :templateParameter="template.templateParameters[parameterFindIndex()]"></parameter-y-n>
+              <parameter-inequality v-if="parameterSelect('@><')" :templateParameter="template.templateParameters[parameterFindIndex()]"></parameter-inequality>
+              <parameter-game-code v-if="parameterSelect('@gameCode')" :templateParameter="template.templateParameters[parameterFindIndex()]"></parameter-game-code>
+              <parameter-user-type v-if="parameterSelect('@userType')" :templateParameter="template.templateParameters[parameterFindIndex()]"></parameter-user-type>
+              <parameter-order v-if="parameterSelect('@order')" :templateParameter="template.templateParameters[parameterFindIndex()]"></parameter-order>
+              <parameter-custom v-if="parameterSelect('@custom')" :templateParameter="template.templateParameters[parameterFindIndex()]"></parameter-custom>
+              <parameter-date v-if="parameterSelect('@date')" :templateParameter="template.templateParameters[parameterFindIndex()]"></parameter-date>
+              <parameter-start-date-end-date v-if="parameterSelect('@startDate~@endDate')" :templateParameter="template.templateParameters[parameterFindIndex()]"></parameter-start-date-end-date>
+              <parameter-start-time-end-time v-if="parameterSelect('@startTime~@endTime')" :templateParameter="template.templateParameters[parameterFindIndex()]"></parameter-start-time-end-time>
+              <parameter-country v-if="parameterSelect('@country')" :templateParameter="template.templateParameters[parameterFindIndex()]"></parameter-country>
+              <parameter-os v-if="parameterSelect('@os')" :templateParameter="template.templateParameters[parameterFindIndex()]"></parameter-os>
+              <parameter-login-type v-if="parameterSelect('@loginType')" :templateParameter="template.templateParameters[parameterFindIndex()]"></parameter-login-type>
+              <parameter-upload-table v-if="parameterSelect('@uploadTable')" :templateParameter="template.templateParameters[parameterFindIndex()]"></parameter-upload-table>
+              <parameter-comment v-if="parameterSelect('@/*~@*/')" :templateParameter="template.templateParameters[parameterFindIndex()] || {}"></parameter-comment>
+              <parameter-option-comment v-if="parameterSelect('@opt(A)/*~@opt(B)*/')" :templateParameter="template.templateParameters[parameterFindIndex()] || {}"></parameter-option-comment>
               <div class="flex-grow-1"></div>
               <div class="flex px-5">
                 <div class="empty"></div>
@@ -103,8 +105,8 @@ import ParameterString from './components/parameter/ParameterString.vue'
 import ParameterStartIntEndInt from './components/parameter/ParameterStartIntEndInt.vue'
 import ParameterYN from './components/parameter/ParameterYN.vue'
 import ParameterInequality from './components/parameter/ParameterInequality.vue'
-import ParameterGamecode from './components/parameter/ParameterGamecode.vue'
-import ParameterUsertype from './components/parameter/ParameterUsertype.vue'
+import ParameterGameCode from './components/parameter/ParameterGameCode.vue'
+import ParameterUserType from './components/parameter/ParameterUserType.vue'
 import ParameterOrder from './components/parameter/ParameterOrder.vue'
 import ParameterCustom from './components/parameter/ParameterCustom.vue'
 import ParameterDate from './components/parameter/ParameterDate.vue'
@@ -113,7 +115,9 @@ import ParameterStartTimeEndTime from './components/parameter/ParameterStartTime
 import ParameterCountry from './components/parameter/ParameterCountry.vue'
 import ParameterOs from './components/parameter/ParameterOs.vue'
 import ParameterLoginType from './components/parameter/ParameterLoginType.vue'
-import ParameterUpdateTable from './components/parameter/ParameterUpdateTable.vue'
+import ParameterUploadTable from './components/parameter/ParameterUploadTable.vue'
+import ParameterComment from './components/parameter/ParameterComment.vue'
+import ParameterOptionComment from './components/parameter/ParameterOptionComment.vue'
 import Icon from 'vue-awesome/components/Icon.vue'
 import 'vue-awesome/icons/caret-down'
 import 'vue-awesome/icons/caret-up'
@@ -144,7 +148,7 @@ export default {
     apiTemplate: function (template) {
       this.setTemplate(template)
       if (this.parameter === 'none' && template.templateParameters && template.templateParameters.length > 0) {
-        this.$router.push({name: 'template-step3', params: {templateId: this.templateId, parameter: template.templateParameters[0].paramType}})
+        this.$router.push({name: 'template-step3', params: {templateId: this.templateId, parameter: template.templateParameters[0].paranmInquery}})
       }
     }
   },
@@ -227,24 +231,28 @@ export default {
       const parameter = this.parameter.toLowerCase()
       let rtn
       switch (type) {
-        case '@start_int~@end_int':
-        case '@start_date~@end_date':
-        case '@start_time~@end_time':
+        case '@startInt~@endInt':
+        case '@startDate~@endDate':
+        case '@startTime~@endTime':
           const types = type.split('~')
-          rtn = parameter.indexOf(types[0]) === 0 && parameter.indexOf(types[1]) > 0
+          rtn = parameter.indexOf(types[0].toLowerCase()) === 0 && parameter.indexOf(types[1].toLowerCase()) > 0
           break
         default:
-          rtn = parameter.indexOf(type) === 0
+          rtn = parameter.indexOf(type.toLowerCase()) === 0
       }
       return rtn
     },
     parameterFindIndex () {
-      return findIndex(this.template.templateParameters, ['paramType', this.parameter])
+      return findIndex(this.template.templateParameters, ['paranmInquery', this.parameter])
     },
     parameterType () {
-      const types = ['@database', '@table', '@column', '@code', '@int', '@string']
+      const types = [
+        '@database', '@table', '@column', '@code', '@int', '@string', '@startInt~@endInt', '@yn', '@><',
+        '@gameCode', '@userType', '@order', '@custom', '@date', '@startDate~@endDate', '@startTime~@endTime',
+        '@country', '@os', '@loginType', '@updateTable', '@/*~@*/', '@opt(A)/*~@opt(B)*/'
+      ]
       for (let i = 0; i < types.length; i += 1) {
-        if (this.parameter.toLowerCase().indexOf(types[i]) === 0) {
+        if (this.parameterSelect(types[i])) {
           return types[i]
         }
       }
@@ -272,8 +280,8 @@ export default {
     ParameterStartIntEndInt,
     ParameterYN,
     ParameterInequality,
-    ParameterGamecode,
-    ParameterUsertype,
+    ParameterGameCode,
+    ParameterUserType,
     ParameterOrder,
     ParameterCustom,
     ParameterDate,
@@ -282,7 +290,9 @@ export default {
     ParameterCountry,
     ParameterOs,
     ParameterLoginType,
-    ParameterUpdateTable,
+    ParameterUploadTable,
+    ParameterComment,
+    ParameterOptionComment,
     Icon
   },
   created () {

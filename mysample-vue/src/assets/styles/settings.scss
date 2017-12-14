@@ -162,6 +162,10 @@ h6 {
   opacity: .65;
 }
 
+.invalid50 {
+  opacity: .50;
+}
+
 .row {
   margin-left: 0 !important;
   & .column {
@@ -172,7 +176,7 @@ h6 {
 .flex {
   display: flex;
   align-items: center;
-  & .empty {
+  & .empty, .full {
     flex-grow: 1;
   }
 }
@@ -266,6 +270,18 @@ h6 {
 
 .width20 {
   width: 20%;
+}
+
+.width30 {
+  width: 30%;
+}
+
+.width33 {
+  width: 33%;
+}
+
+.width50 {
+  width: 50%;
 }
 
 .width60 {

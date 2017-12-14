@@ -1,10 +1,10 @@
 <template>
   <div>
-    <component-user-display placeholderEN="Login type"></component-user-display>
+    <component-user-display placeholderEN="Login type" :templateParameter="templateParameter"></component-user-display>
     <hr>
-    <component-filter></component-filter>
+    <component-filter :templateParameter="templateParameter"></component-filter>
     <hr>
-    <component-use-ui paramaterType="login_type"></component-use-ui>
+    <component-use-ui paramaterType="loginType"></component-use-ui>
   </div>
 </template>
 
@@ -14,10 +14,32 @@ import ComponentFilter from './components/ComponentFilter.vue'
 import ComponentUseUi from './components/ComponentUseUi.vue'
 
 export default {
+  props: {
+    templateParameter: {
+      type: Object
+    }
+  },
+  watch: {
+    templateParameter: function () {
+      this.init()
+    }
+  },
+  methods: {
+    init () {
+      if (!this.templateParameter.paramAttr) {
+        this.templateParameter.paramAttr = {
+          moreOption: false
+        }
+      }
+    }
+  },
   components: {
     ComponentUserDisplay,
     ComponentFilter,
     ComponentUseUi
+  },
+  created () {
+    this.init()
   }
 }
 </script>

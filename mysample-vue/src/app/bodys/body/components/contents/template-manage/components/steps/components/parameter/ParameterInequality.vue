@@ -1,6 +1,6 @@
 <template>
   <div>
-    <component-user-display placeholderEN="><"></component-user-display>
+    <component-user-display placeholderEN="><" :templateParameter="templateParameter"></component-user-display>
     <hr>
     <div class="mb-5">
       <h6 class="mb-0">사용할 부등호 기호*</h6>
@@ -19,47 +19,40 @@
               <th>User Display JP (50byte)</th>
             </tr>
             <tr>
-              <th class="title"><input type="checkbox" class="mb-0" title="bigEN"></th>
+              <th class="title"><input type="checkbox" class="mb-0 pointer" title="bigEN" v-model="templateParameter.paramAttr['>'].useYn_"></th>
               <th class="title"><label class="normalLabel" for="bigEN">></label></th>
-              <td class="input_text"><input type="text" class="mb-0" id="bigEN" placeholder=">"></td>
-              <td class="input_text"><input type="text" class="mb-0" title="bigKR" placeholder=""></td>
-              <td class="input_text"><input type="text" class="mb-0" title="bigJP" placeholder=""></td>
+              <td class="input_text"><input type="text" class="mb-0" id="bigEN" placeholder=">" v-model="templateParameter.paramAttr['>'].EN"></td>
+              <td class="input_text"><input type="text" class="mb-0" title="bigKR" placeholder="" v-model="templateParameter.paramAttr['>'].KR"></td>
+              <td class="input_text"><input type="text" class="mb-0" title="bigJP" placeholder="" v-model="templateParameter.paramAttr['>'].JP"></td>
             </tr>
             <tr>
-              <th class="title"><input type="checkbox" class="mb-0" title="smallEN" checked="checked"></th>
+              <th class="title"><input type="checkbox" class="mb-0 pointer" title="smallEN" v-model="templateParameter.paramAttr['<'].useYn_"></th>
               <th class="title"><label class="normalLabel" for="smallEN"><</label></th>
-              <td class="input_text"><input type="text" class="mb-0" id="smallEN" placeholder="<"></td>
-              <td class="input_text"><input type="text" class="mb-0" title="smallKR" placeholder=""></td>
-              <td class="input_text"><input type="text" class="mb-0" title="smallJP" placeholder=""></td>
+              <td class="input_text"><input type="text" class="mb-0" id="smallEN" placeholder="<" v-model="templateParameter.paramAttr['<'].EN"></td>
+              <td class="input_text"><input type="text" class="mb-0" title="smallKR" placeholder="" v-model="templateParameter.paramAttr['<'].KR"></td>
+              <td class="input_text"><input type="text" class="mb-0" title="smallJP" placeholder="" v-model="templateParameter.paramAttr['<'].JP"></td>
             </tr>
             <tr>
-              <th class="title"><input type="checkbox" class="mb-0" title="equalEN" checked="checked"></th>
+              <th class="title"><input type="checkbox" class="mb-0 pointer" title="equalEN" v-model="templateParameter.paramAttr['='].useYn_"></th>
               <th class="title"><label class="normalLabel" for="equalEN">=</label></th>
-              <td class="input_text"><input type="text" class="mb-0" id="equalEN" placeholder="="></td>
-              <td class="input_text"><input type="text" class="mb-0" title="equalKR" placeholder=""></td>
-              <td class="input_text"><input type="text" class="mb-0" title="equalJP" placeholder=""></td>
+              <td class="input_text"><input type="text" class="mb-0" id="equalEN" placeholder="=" v-model="templateParameter.paramAttr['='].EN"></td>
+              <td class="input_text"><input type="text" class="mb-0" title="equalKR" placeholder="" v-model="templateParameter.paramAttr['='].KR"></td>
+              <td class="input_text"><input type="text" class="mb-0" title="equalJP" placeholder="" v-model="templateParameter.paramAttr['='].JP"></td>
             </tr>
             <tr>
-              <th class="title"><input type="checkbox" class="mb-0" title="bigEqualEN"></th>
+              <th class="title"><input type="checkbox" class="mb-0 pointer" title="bigEqualEN" v-model="templateParameter.paramAttr['>='].useYn_"></th>
               <th class="title"><label class="normalLabel" for="bigEqualEN">>=</label></th>
-              <td class="input_text"><input type="text" class="mb-0" id="bigEqualEN" placeholder=">="></td>
-              <td class="input_text"><input type="text" class="mb-0" title="bigEqualKR" placeholder=""></td>
-              <td class="input_text"><input type="text" class="mb-0" title="bigEqualJP" placeholder=""></td>
+              <td class="input_text"><input type="text" class="mb-0" id="bigEqualEN" placeholder=">=" v-model="templateParameter.paramAttr['>='].EN"></td>
+              <td class="input_text"><input type="text" class="mb-0" title="bigEqualKR" placeholder="" v-model="templateParameter.paramAttr['>='].KR"></td>
+              <td class="input_text"><input type="text" class="mb-0" title="bigEqualJP" placeholder="" v-model="templateParameter.paramAttr['>='].JP"></td>
             </tr>
             <tr>
-              <th class="title"><input type="checkbox" class="mb-0" title="smallEqualEN"></th>
+              <th class="title"><input type="checkbox" class="mb-0 pointer" title="smallEqualEN" v-model="templateParameter.paramAttr['<='].useYn_"></th>
               <th class="title"><label class="normalLabel" for="smallEqualEN"><=</label></th>
-              <td class="input_text"><input type="text" class="mb-0" id="smallEqualEN" placeholder="<="></td>
-              <td class="input_text"><input type="text" class="mb-0" title="smallEqualKR" placeholder=""></td>
-              <td class="input_text"><input type="text" class="mb-0" title="smallEqualJP" placeholder=""></td>
+              <td class="input_text"><input type="text" class="mb-0" id="smallEqualEN" placeholder="<=" v-model="templateParameter.paramAttr['<='].EN"></td>
+              <td class="input_text"><input type="text" class="mb-0" title="smallEqualKR" placeholder="" v-model="templateParameter.paramAttr['<='].KR"></td>
+              <td class="input_text"><input type="text" class="mb-0" title="smallEqualJP" placeholder="" v-model="templateParameter.paramAttr['<='].JP"></td>
             </tr>
-            <!-- <tr>
-              <th class="title"><input type="checkbox" class="mb-0" title="notEqualEN"></th>
-              <th class="title"><label class="normalLabel" for="notEqualEN"><></label></th>
-              <td class="input_text"><input type="text" class="mb-0" id="notEqualEN" placeholder="No"></td>
-              <td class="input_text"><input type="text" class="mb-0" title="notEqualKR" placeholder=""></td>
-              <td class="input_text"><input type="text" class="mb-0" title="notEqualJP" placeholder=""></td>
-            </tr> -->
           </tbody>
         </table>
       </div>
@@ -74,9 +67,35 @@ import ComponentUserDisplay from './components/ComponentUserDisplay.vue'
 import ComponentUseUi from './components/ComponentUseUi.vue'
 
 export default {
+  props: {
+    templateParameter: {
+      type: Object
+    }
+  },
+  watch: {
+    templateParameter: function () {
+      this.init()
+    }
+  },
+  methods: {
+    init () {
+      if (!this.templateParameter.paramAttr) {
+        this.templateParameter.paramAttr = {
+          '>': { useYn_: false, EN: '>', KR: '', JP: '' },
+          '<': { useYn_: false, EN: '<', KR: '', JP: '' },
+          '=': { useYn_: false, EN: '=', KR: '', JP: '' },
+          '>=': { useYn_: false, EN: '>=', KR: '', JP: '' },
+          '<=': { useYn_: false, EN: '<=', KR: '', JP: '' }
+        }
+      }
+    }
+  },
   components: {
     ComponentUserDisplay,
     ComponentUseUi
+  },
+  created () {
+    this.init()
   }
 }
 </script>

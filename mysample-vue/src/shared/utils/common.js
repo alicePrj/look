@@ -6,6 +6,9 @@ export const common = {
     self.$router.push({ name: 'template-step' + step, params: { templateId: template.templateId, lang: 'EN', parameter: 'none' } })
   },
   checkNumberCommas (paramAttr, value) {
+    if (!paramAttr[value]) {
+      return
+    }
     const num = util.numberDeleteCommas(paramAttr[value])
     if (paramAttr[value] === '-' || paramAttr[value] === '0' || paramAttr[value] === '') {
     } else if (!num) {

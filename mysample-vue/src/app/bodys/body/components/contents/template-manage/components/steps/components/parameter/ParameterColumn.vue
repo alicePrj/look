@@ -111,7 +111,7 @@ export default {
     }
   },
   watch: {
-    templateParameter: function (templateParameter) {
+    templateParameter: function () {
       this.init()
     }
   },

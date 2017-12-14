@@ -1,12 +1,12 @@
 <template>
   <div>
-    <component-user-display placeholderEN="Period"></component-user-display>
+    <component-user-display placeholderEN="Period" :templateParameter="templateParameter"></component-user-display>
     <hr>
-    <component-date-option></component-date-option>
+    <component-date-option :templateParameter="templateParameter"></component-date-option>
     <hr>
-    <component-range-option></component-range-option>
+    <component-range-option :templateParameter="templateParameter"></component-range-option>
     <hr>
-    <component-select-type paramaterType="start_time~end_time"></component-select-type>
+    <component-select-type paramaterType="startTime~endTime" :templateParameter="templateParameter"></component-select-type>
   </div>
 </template>
 
@@ -17,11 +17,36 @@ import ComponentRangeOption from './components/ComponentRangeOption.vue'
 import ComponentSelectType from './components/ComponentSelectType.vue'
 
 export default {
+  props: {
+    templateParameter: {
+      type: Object
+    }
+  },
+  watch: {
+    templateParameter: function () {
+      this.init()
+    }
+  },
+  methods: {
+    init () {
+      if (!this.templateParameter.paramAttr) {
+        this.templateParameter.paramAttr = {
+          selectType: 0,
+          from: '',
+          to: 0,
+          range: ''
+        }
+      }
+    }
+  },
   components: {
     ComponentUserDisplay,
     ComponentDateOption,
     ComponentRangeOption,
     ComponentSelectType
+  },
+  created () {
+    this.init()
   }
 }
 </script>

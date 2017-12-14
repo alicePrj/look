@@ -15,7 +15,7 @@
           <div>
             <ul class="mb-0">
               <li v-for="(templateParameter, key) in template.templateParameters" :key="key">
-                <div>{{templateParameter.paramType}}</div>
+                <div>{{templateParameter.paranmInquery}}</div>
               </li>
               <!-- <li><div>@database</div></li>
               <li><div>@table</div></li>

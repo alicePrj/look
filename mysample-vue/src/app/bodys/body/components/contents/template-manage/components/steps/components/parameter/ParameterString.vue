@@ -1,6 +1,6 @@
 <template>
   <div>
-    <component-user-display placeholderEN="Value"></component-user-display>
+    <component-user-display placeholderEN="Value" :templateParameter="templateParameter"></component-user-display>
     <hr>
     <div class="mb-5">
       <h6 class="mb-0">입력 가능한 string 길이 *</h6>
@@ -10,7 +10,8 @@
           <tbody>
             <tr>
               <td class="input_text">
-                <input type="text" class="mb-0 width20" id="intMin" placeholder="0">
+                <input type="text" class="mb-0 width20" id="intMin" placeholder="0"
+                  v-model="templateParameter.paramAttr.maxLength_" @keydown="numberOnlyEvent($event)" @keyup="checkNumberCommas(templateParameter.paramAttr, 'maxLength_')">
                 <label class="normalLabel ml-5" for="intMin">byte</label>
               </td>
             </tr>
@@ -27,18 +28,27 @@
           <tbody>
             <tr>
               <th class="title">EN *</th>
-              <td class="input_text width80"><input type="text" class="mb-0" title="EN title" placeholder="You can insert more objects than 2 using ,(comma)."></td>
-              <td>(0/100 byte)</td>
+              <td class="input_text width80">
+                <input type="text" class="mb-0" title="EN title" placeholder="You can insert more objects than 2 using ,(comma)."
+                  v-model="templateParameter.paramAttr.noticeEn">
+              </td>
+              <td>({{ templateParameter.paramAttr.noticeEn | stringLengthComma }}/100 byte)</td>
             </tr>
             <tr>
               <th class="title">KR</th>
-              <td class="input_text width80"><input type="text" class="mb-0" title="KR title" placeholder=""></td>
-              <td>(0/100 byte)</td>
+              <td class="input_text width80">
+                <input type="text" class="mb-0" title="KR title" placeholder=""
+                  v-model="templateParameter.paramAttr.noticeKr">
+              </td>
+              <td>({{ templateParameter.paramAttr.noticeKr | stringLengthComma }}/100 byte)</td>
             </tr>
             <tr>
               <th class="title">JP</th>
-              <td class="input_text width80"><input type="text" class="mb-0" title="JP title" placeholder=""></td>
-              <td>(0/100 byte)</td>
+              <td class="input_text width80">
+                <input type="text" class="mb-0" title="JP title" placeholder=""
+                  v-model="templateParameter.paramAttr.noticeJp">
+              </td>
+              <td>({{ templateParameter.paramAttr.noticeJp | stringLengthComma }}/100 byte)</td>
             </tr>
           </tbody>
         </table>
@@ -50,13 +60,43 @@
 </template>
 
 <script>
+import { util } from '@/shared/utils/util'
+import { common } from '@/shared/utils/common'
 import ComponentUserDisplay from './components/ComponentUserDisplay.vue'
 import ComponentUseUi from './components/ComponentUseUi.vue'
 
 export default {
+  props: {
+    templateParameter: {
+      type: Object
+    }
+  },
+  watch: {
+    templateParameter: function () {
+      this.init()
+    }
+  },
+  methods: {
+    init () {
+      if (!this.templateParameter.paramAttr) {
+        this.templateParameter.paramAttr = {
+          maxLength: '',
+          maxLength_: '',
+          noticeEn: '',
+          noticeKr: '',
+          noticeJp: ''
+        }
+      }
+    },
+    numberOnlyEvent: util.numberOnlyEvent,
+    checkNumberCommas: common.checkNumberCommas
+  },
   components: {
     ComponentUserDisplay,
     ComponentUseUi
+  },
+  created () {
+    this.init()
   }
 }
 </script>

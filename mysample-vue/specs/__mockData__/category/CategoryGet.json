@@ -1,0 +1,18 @@
+{
+  "result": {
+    "categoryId": 6,
+    "firstCategoryId": 0,
+    "orderNum": 3,
+    "categoryNmEn": "my 666 Category",
+    "categoryNmKr": "여섯째네요.. 작성 ~~",
+    "categoryNmJp": "",
+    "categoryNm": null,
+    "authLevel": "Admin,Wizar_Admin",
+    "useYn": "Y",
+    "crtMid": "T00300000D1P_LP90405",
+    "crtDate": 1509672984000,
+    "modifyMid": null,
+    "modifyDate": null,
+    "templates": []
+  }
+}

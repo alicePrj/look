@@ -3,10 +3,19 @@
     <div class="row search flex mb-4">
       <div class="search-panel">
         <label for="search-box" class="float-left m-0" style="line-height: 2.4;">Search</label>
-        <span class="search-box-wrap">
-          <input type="text" class="float-left" v-model="condition.searchString" @keyup.enter="search" placeholder="Enter Template or category Name" id="search-box">
-          <span @click="search"><icon class="search-icon" name="search" scale="1"></icon></span>
-        </span>
+        <div class="flex">
+          <div class="mx-4">
+            <select class="mb-0" title="langType" v-model="condition.langType" @change="search">
+              <option value="EN">EN</option>
+              <option value="KR">KR</option>
+              <option value="JP">JP</option>
+            </select>
+          </div>
+          <div class="position-relative full">
+            <input type="text" class="" v-model="condition.searchString" @keyup.enter="search" placeholder="Enter Template or category Name" id="search-box">
+            <span @click="search" class="search-icon"><icon name="search" scale="1"></icon></span>
+          </div>
+        </div>
       </div>
       <div class="add-buttons">
         <router-link v-bind:to="{name: 'template-step1', params: {templateId: 0}}" class="button add-staff" activeClass="selected" exact>Add New Template</router-link>
@@ -144,7 +153,8 @@ export default {
     return {
       condition: {
         nowPage: 1,
-        pageNum: 15
+        pageNum: 15,
+        langType: 'EN'
       },
       totCnt: 0,
       templateList: [],
@@ -265,7 +275,8 @@ export default {
 
 .search-icon {
   position: absolute;
-  top: 2rem;
+  top: 8px;
+  right: 10px;
   margin-left: -3rem;
   cursor: pointer;
 }

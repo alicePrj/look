@@ -7,18 +7,19 @@
         <tbody>
           <tr>
             <th class="title"><label class="normalLabel" for="dateFrom">From</label></th>
-            <td class="input_text"><input type="text" class="mb-0" id="dateFrom" placeholder="yyyyMMdd"></td>
+            <td class="input_text"><input type="text" class="mb-0" id="dateFrom" placeholder="yyyyMMdd"
+              v-model="templateParameter.paramAttr.from" @keydown="numberOnlyEvent($event)"></td>
           </tr>
           <tr>
             <th class="title"><label class="normalLabel" for="selectDateToYesterday">To</label></th>
             <td class="input_text">
               <div class="flex py-3">
                 <div>
-                  <input class="mb-0 pointer" type="radio" name="selectDateTo" id="selectDateToYesterday">
+                  <input class="mb-0 pointer" type="radio" name="selectDateTo" id="selectDateToYesterday" v-model="templateParameter.paramAttr.to" :value="0">
                   <label class="normalLabel" for="selectDateToYesterday">어제</label>
                 </div>
                 <div style="margin-left: 10rem;">
-                  <input class="mb-0 pointer" type="radio" name="selectDateTo" id="selectDateToToday">
+                  <input class="mb-0 pointer" type="radio" name="selectDateTo" id="selectDateToToday" v-model="templateParameter.paramAttr.to" :value="1">
                   <label class="normalLabel" for="selectDateToToday">오늘</label>
                 </div>
               </div>
@@ -29,6 +30,21 @@
     </div>
   </div>
 </template>
+
+<script>
+import { util } from '@/shared/utils/util'
+
+export default {
+  props: {
+    templateParameter: {
+      type: Object
+    }
+  },
+  methods: {
+    numberOnlyEvent: util.numberOnlyEvent
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 @import "~@/assets/styles/settings.scss";

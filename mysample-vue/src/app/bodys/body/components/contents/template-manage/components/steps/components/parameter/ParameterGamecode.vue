@@ -1,8 +1,8 @@
 <template>
   <div>
-    <component-user-display placeholderEN="Game Name"></component-user-display>
+    <component-user-display placeholderEN="Game Name" :templateParameter="templateParameter"></component-user-display>
     <hr>
-    <component-select-type paramaterType="gamecode"></component-select-type>
+    <component-select-type paramaterType="gameCode" :templateParameter="templateParameter"></component-select-type>
   </div>
 </template>
 
@@ -11,9 +11,31 @@ import ComponentUserDisplay from './components/ComponentUserDisplay.vue'
 import ComponentSelectType from './components/ComponentSelectType.vue'
 
 export default {
+  props: {
+    templateParameter: {
+      type: Object
+    }
+  },
+  watch: {
+    templateParameter: function () {
+      this.init()
+    }
+  },
+  methods: {
+    init () {
+      if (!this.templateParameter.paramAttr) {
+        this.templateParameter.paramAttr = {
+          selectType: 0
+        }
+      }
+    }
+  },
   components: {
     ComponentUserDisplay,
     ComponentSelectType
+  },
+  created () {
+    this.init()
   }
 }
 </script>

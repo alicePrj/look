@@ -8,7 +8,7 @@ import mockTemplateGet from '@mock/template/TemplateGet'
 
 export const templateModule = {
   state: {
-    _useMock: {
+    /* _useMock: {
       [types.TEMPLATE_LIST_POST]: false,
       [types.TEMPLATE_GET]: false,
       [types.TEMPLATE_ORDER]: false,
@@ -25,10 +25,11 @@ export const templateModule = {
       [types.TEMPLATE_DEPLOY]: false,
       [types.TEMPLATE_ORG]: false,
       [types.TEMPLATE_DISCARDCHANGE]: false
-    },
+    }, */
     _templateList: {},
     _template: {},
-    _templateOrg: {}
+    _templateOrg: {},
+    _templateQueryCheck: ''
   },
   mutations: {
     [types.TEMPLATE_LIST_POST] (state, templateList) {
@@ -37,8 +38,11 @@ export const templateModule = {
     [types.TEMPLATE_GET] (state, template) {
       state._template = template
     },
-    [types.TEMPLATE_ORG] (state, template) {
-      state._templateOrg = template
+    [types.TEMPLATE_ORG] (state, templateOrg) {
+      state._templateOrg = templateOrg
+    },
+    [types.TEMPLATE_PARAMETER_QUERY_CHECK] (state, templateQueryCheck) {
+      state._templateQueryCheck = templateQueryCheck
     }
   },
   /* getters: {
@@ -51,8 +55,8 @@ export const templateModule = {
   }, */
   actions: {
     [types.TEMPLATE_LIST_POST] ({ commit }, condition) {
-      const { state } = this._modules.root._children.template
-      if (state._useMock[types.TEMPLATE_LIST_POST]) {
+      const isMock = false
+      if (isMock === true) {
         commit(types.TEMPLATE_LIST_POST, mockTemplateListPost.result)
       } else {
         http.postPromise('/template/list', condition).then(res => {
@@ -61,8 +65,8 @@ export const templateModule = {
       }
     },
     [types.TEMPLATE_GET] ({ commit }, templateId) {
-      const { state } = this._modules.root._children.template
-      if (state._useMock[types.TEMPLATE_GET]) {
+      const isMock = false
+      if (isMock === true) {
         commit(types.TEMPLATE_GET, mockTemplateGet.result)
       } else {
         http.getPromise('/template/' + templateId).then(res => {
@@ -70,9 +74,9 @@ export const templateModule = {
         })
       }
     },
-    [types.TEMPLATE_ORDER] ({ ommit }, self) {
-      const { state } = this._modules.root._children.template
-      if (state._useMock[types.TEMPLATE_ORDER]) {
+    [types.TEMPLATE_ORDER] ({ commit }, self) {
+      const isMock = false
+      if (isMock === true) {
         util.toastr().success('수정 배포 되었습니다.')
       } else {
         const newOrder = []
@@ -98,9 +102,9 @@ export const templateModule = {
         })
       }
     },
-    [types.TEMPLATE_CATEGORY] ({ ommit }, self) {
-      const { state } = this._modules.root._children.template
-      if (state._useMock[types.TEMPLATE_CATEGORY]) {
+    [types.TEMPLATE_CATEGORY] ({ commit }, self) {
+      const isMock = false
+      if (isMock === true) {
         util.toastr().success('수정 배포 되었습니다.')
       } else {
         const newCategory = {
@@ -129,8 +133,7 @@ export const templateModule = {
         })
       }
     },
-    [types.TEMPLATE_DISPLAY] ({ ommit }, self) {
-      const { state } = this._modules.root._children.template
+    [types.TEMPLATE_DISPLAY] ({ commit }, self) {
       const template = self.currentTemplate
       const templateKey = self.currentTemplateKey
       let displayYn = 'Y'
@@ -148,7 +151,8 @@ export const templateModule = {
           return
         }
       }
-      if (state._useMock[types.TEMPLATE_DISPLAY]) {
+      const isMock = false
+      if (isMock === true) {
         util.toastr().success('수정 배포 되었습니다.')
         document.getElementById('displayButton' + templateKey).click()
       } else {
@@ -173,12 +177,12 @@ export const templateModule = {
         })
       }
     },
-    [types.TEMPLATE_DELETE] ({ ommit }, self) {
-      const { state } = this._modules.root._children.template
+    [types.TEMPLATE_DELETE] ({ commit }, self) {
       if (!confirm('정말 삭제하시겠습니까?')) {
         return
       }
-      if (state._useMock[types.TEMPLATE_DELETE]) {
+      const isMock = false
+      if (isMock === true) {
         util.toastr().success('삭제 되었습니다.')
       } else {
         const spinner = util.spinner(self.spinnerId)
@@ -197,9 +201,9 @@ export const templateModule = {
         })
       }
     },
-    [types.TEMPLATE_SAVE_1] ({ ommit }, self) {
-      const { state } = this._modules.root._children.template
-      if (state._useMock[types.TEMPLATE_SAVE_1]) {
+    [types.TEMPLATE_SAVE_1] ({ commit }, self) {
+      const isMock = false
+      if (isMock === true) {
         util.toastr().success('저장 되었습니다.')
         self.$router.push({name: 'template-step2', params: {templateId: 1}})
       } else {
@@ -231,9 +235,9 @@ export const templateModule = {
         })
       }
     },
-    [types.TEMPLATE_SAVE_2] ({ ommit }, self) {
-      const { state } = this._modules.root._children.template
-      if (state._useMock[types.TEMPLATE_SAVE_2]) {
+    [types.TEMPLATE_SAVE_2] ({ commit }, self) {
+      const isMock = false
+      if (isMock === true) {
         util.toastr().success('저장 되었습니다.')
         self.$router.push({name: 'template-step2-preview', params: {templateId: 1}})
       } else {
@@ -259,9 +263,197 @@ export const templateModule = {
         })
       }
     },
-    [types.TEMPLATE_PARAMETER_ORDER] ({ ommit }, self) {
-      const { state } = this._modules.root._children.template
-      if (state._useMock[types.TEMPLATE_PARAMETER_ORDER]) {
+    [types.TEMPLATE_PARAMETER] ({ commit }, self) {
+      const isMock = false
+      if (isMock === true) {
+        util.toastr().success('저장 되었습니다.')
+        self.$router.push({name: 'template-step3', params: {templateId: 1, parameter: 'none'}})
+      } else {
+        const template = { ...self.template }
+        const templateParameter = template.templateParameters[self.parameterFindIndex()]
+        if (!templateParameter.paramNmEn) {
+          util.toastr().warning('영문 조건명을 입력해 주세요.')
+          return
+        }
+        let checked = false
+        let validEn = true
+        switch (self.parameterType()) {
+          case '@table':
+            if (!templateParameter.paramAttr['databaseValue' + templateParameter.paramAttr.dependencyType]) {
+              util.toastr().warning('Dependency 조건을 확인해 주세요.')
+              return
+            } else {
+              templateParameter.paramAttr.databaseValue = templateParameter.paramAttr['databaseValue' + templateParameter.paramAttr.dependencyType]
+            }
+            break
+          case '@column':
+            if (!templateParameter.paramAttr['databaseValue' + templateParameter.paramAttr.dependencyType] || !templateParameter.paramAttr['tableValue' + templateParameter.paramAttr.dependencyType]) {
+              util.toastr().warning('Dependency 조건을 확인해 주세요.')
+              return
+            } else {
+              templateParameter.paramAttr.databaseValue = templateParameter.paramAttr['databaseValue' + templateParameter.paramAttr.dependencyType]
+              templateParameter.paramAttr.tableValue = templateParameter.paramAttr['tableValue' + templateParameter.paramAttr.dependencyType]
+            }
+            break
+          case '@code':
+            if (!templateParameter.paramAttr['databaseValue' + templateParameter.paramAttr.dependencyType]) {
+              util.toastr().warning('Dependency 조건을 확인해 주세요.')
+              return
+            } else {
+              templateParameter.paramAttr.databaseValue = templateParameter.paramAttr['databaseValue' + templateParameter.paramAttr.dependencyType]
+            }
+            if (!templateParameter.paramAttr.tableValue || !templateParameter.paramAttr.columnValue) {
+              util.toastr().warning('Code 정보를 불러올 table과 column을 입력해 주세요.')
+              return
+            }
+            break
+          case '@int':
+          case '@startInt~@endInt':
+            const minValue = common.validNumberCommas(templateParameter.paramAttr['minValue_'])
+            const maxValue = common.validNumberCommas(templateParameter.paramAttr['maxValue_'])
+            if (minValue === false) {
+              util.toastr().warning('최소값에 숫자만 입력 해주세요.')
+              return
+            }
+            if (maxValue === false) {
+              util.toastr().warning('최대값에 숫자만 입력 해주세요.')
+              return
+            }
+            if ((minValue !== '' && maxValue !== '') && minValue > maxValue) {
+              util.toastr().warning('최소값이 최대값 보다 큽니다.')
+              return
+            }
+            templateParameter.paramAttr['minValue'] = minValue
+            templateParameter.paramAttr['maxValue'] = maxValue
+            break
+          case '@string':
+            const maxLength = common.validNumberCommas(templateParameter.paramAttr['maxLength_'])
+            if (maxLength === false) {
+              util.toastr().warning('string 길이에 숫자만 입력 해주세요.')
+              return
+            }
+            if (!templateParameter.paramAttr.noticeEn) {
+              util.toastr().warning('영문 주의사항 문구를 설정해 주세요.')
+              return
+            }
+            templateParameter.paramAttr['maxLength'] = maxLength
+            break
+          case '@yn':
+            if (!templateParameter.paramAttr['Y,N'].EN || !templateParameter.paramAttr.Y.EN || !templateParameter.paramAttr.N.EN) {
+              util.toastr().warning('영문 선택 옵션 문구를 설정해 주세요.')
+              return
+            }
+            break
+          case '@><':
+            map(templateParameter.paramAttr, (paramAttr) => {
+              if (paramAttr.useYn_) {
+                checked = true
+                if (!paramAttr.EN) {
+                  validEn = false
+                }
+              }
+              paramAttr.useYn = paramAttr.useYn_ ? 'Y' : 'N'
+            })
+            if (!checked) {
+              util.toastr().warning('한 개 이상의 부등호 기호가 선택되어야 합니다.')
+              return
+            }
+            if (!validEn) {
+              util.toastr().warning('영문 선택 옵션 문구를 설정해 주세요.')
+              return
+            }
+            break
+          case '@userType':
+            const types_ = ['NRU_', 'CBU_', 'STU_', 'LeaveUser_', 'ContinuousUser_', 'RestUser_']
+            const types = ['NRU', 'CBU', 'STU', 'LeaveUser', 'ContinuousUser', 'RestUser']
+            map(templateParameter.paramAttr, (paramAttr, key) => {
+              const index = types_.indexOf(key)
+              if (index >= 0) {
+                if (paramAttr) {
+                  checked = true
+                }
+                templateParameter.paramAttr[types[index]] = paramAttr ? 'Y' : 'N'
+              }
+            })
+            if (!checked) {
+              util.toastr().warning('한 개 이상의 Type이 선택되어야 합니다.')
+              return
+            }
+            break
+          case '@order':
+            if (!templateParameter.paramAttr.Asc.EN || !templateParameter.paramAttr.Desc.EN) {
+              util.toastr().warning('영문 선택 옵션 문구를 설정해 주세요.')
+              return
+            }
+            break
+          case '@custom':
+            checked = true
+            map(templateParameter.paramAttr.alias, (alias) => {
+              if (!alias.aliasNm || !alias.EN) {
+                checked = false
+              }
+            })
+            if (!checked) {
+              util.toastr().warning('옵션 항목과 영문 옵션 문구를 설정해 주세요.')
+              return
+            }
+            if (templateParameter.paramAttr.alias.length === 0) {
+              util.toastr().warning('한 개 이상의 Alias가 설정되어야 합니다.')
+              return
+            }
+            break
+          case '@date':
+            if (templateParameter.paramAttr.from.length !== 8) {
+              util.toastr().warning('선택 가능한 날짜 시작일을 설정해 주세요. 예) 20180101')
+              return
+            }
+            break
+          case '@startDate~@endDate':
+          case '@startTime~@endTime':
+            if (templateParameter.paramAttr.from.length !== 8) {
+              util.toastr().warning('선택 가능한 날짜 시작일을 설정해 주세요. 예) 20180101')
+              return
+            }
+            const range = Number(templateParameter.paramAttr.range)
+            if (templateParameter.paramAttr.range !== '' && (range <= 0 || !range)) {
+              util.toastr().warning('선택 가능한 날짜 범위는 0 보다 커야 합니다.')
+              return
+            }
+            break
+          case '@/*~@*/':
+            if (!templateParameter.paramAttr.commentOff.EN || !templateParameter.paramAttr.commentOn.EN) {
+              util.toastr().warning('영문 선택 옵션 문구를 설정해 주세요.')
+              return
+            }
+            break
+          case '@opt(A)/*~@opt(B)*/':
+            if (!templateParameter.paramAttr.optionCommentA.EN || !templateParameter.paramAttr.optionCommentB.EN) {
+              util.toastr().warning('영문 선택 옵션 문구를 설정해 주세요.')
+              return
+            }
+            break
+          default:
+        }
+        /* console.log(self.parameterType())
+        console.log(templateParameter)
+        if (template !== templateParameter) {
+          return
+        } */
+        const spinner = util.spinner(self.spinnerId)
+        http.putPromise('/template/parameter', templateParameter).then(res => {
+          spinner.stop()
+          if (res.data && res.data.result) {
+            util.toastr().success('저장 되었습니다.')
+            self.$store.dispatch(types.TEMPLATE_GET, self.templateId)
+          } else {
+            util.toastr().error('Unknown Exception')
+          }
+        })
+      }
+    },
+    [types.TEMPLATE_PARAMETER_ORDER] ({ commit }, self) {
+      const isMock = false
+      if (isMock === true) {
         util.toastr().success('수정 되었습니다.')
       } else {
         const newOrder = []
@@ -287,82 +479,144 @@ export const templateModule = {
         })
       }
     },
-    [types.TEMPLATE_PARAMETER] ({ ommit }, self) {
-      const { state } = this._modules.root._children.template
-      if (state._useMock[types.TEMPLATE_PARAMETER]) {
-        util.toastr().success('저장 되었습니다.')
-        self.$router.push({name: 'template-step3', params: {templateId: 1, parameter: 'none'}})
+    [types.TEMPLATE_PARAMETER_QUERY_CHECK] ({ commit }, self) {
+      const isMock = false
+      if (isMock === true) {
+        commit(types.TEMPLATE_PARAMETER_QUERY_CHECK, '--test query\nSELECT * FROM oap_real_hbaccess WHERE dt=\'20170428\' limit 10\n\n')
       } else {
-        const template = { ...self.template }
-        const templateParameter = template.templateParameters[self.parameterFindIndex()]
-        if (!templateParameter.paramNmEn) {
-          util.toastr().warning('영문 조건명을 입력해 주세요.')
-          return
+        const { templateParameters } = self.template
+        const template = {
+          templateId: self.template.templateId,
+          paramList: []
         }
-        switch (self.parameterType()) {
-          case '@table':
-            if (!templateParameter.paramAttr['tableValue' + templateParameter.paramAttr.dependencyType]) {
-              util.toastr().warning('Dependency 조건을 확인해 주세요.')
-              return
-            } else {
-              templateParameter.paramAttr.tableValue = templateParameter.paramAttr['tableValue' + templateParameter.paramAttr.dependencyType]
-            }
-            break
-          case '@column':
-            if (!templateParameter.paramAttr['databaseValue' + templateParameter.paramAttr.dependencyType] || !templateParameter.paramAttr['tableValue' + templateParameter.paramAttr.dependencyType]) {
-              util.toastr().warning('Dependency 조건을 확인해 주세요.')
-              return
-            } else {
-              templateParameter.paramAttr.databaseValue = templateParameter.paramAttr['databaseValue' + templateParameter.paramAttr.dependencyType]
-              templateParameter.paramAttr.tableValue = templateParameter.paramAttr['tableValue' + templateParameter.paramAttr.dependencyType]
-            }
-            break
-          case '@code':
-            if (!templateParameter.paramAttr['tableValue' + templateParameter.paramAttr.dependencyType]) {
-              util.toastr().warning('Dependency 조건을 확인해 주세요.')
-              return
-            }
-            if (!templateParameter.paramAttr.tableValue || !templateParameter.paramAttr.columnValue) {
-              util.toastr().warning('Code 정보를 불러올 table과 column을 입력해 주세요.')
-              return
-            }
-            break
-          case '@int':
-            const minValue = common.validNumberCommas(templateParameter.paramAttr['minValue_'])
-            const maxValue = common.validNumberCommas(templateParameter.paramAttr['maxValue_'])
-            if (minValue === false) {
-              util.toastr().warning('최소값에 숫자만 입력 해주세요.')
-              return
-            }
-            if (maxValue === false) {
-              util.toastr().warning('최대값에 숫자만 입력 해주세요.')
-              return
-            }
-            templateParameter.paramAttr['minValue'] = minValue
-            templateParameter.paramAttr['maxValue'] = maxValue
-            break
-          default:
+        for (let i = 0; i < templateParameters.length; i += 1) {
+          const templateParameter = templateParameters[i]
+          const displayName = self.getDisplayName(templateParameter)
+          switch (templateParameter.paramType.toLowerCase()) {
+            case '@database':
+              if (!templateParameter.paramAttribute.databaseValue) {
+                util.toastr().warning(displayName + ' 조건을 선택해 주세요.')
+                return false
+              }
+              break
+            case '@table':
+              if (!templateParameter.paramAttribute.tableValue) {
+                util.toastr().warning(displayName + ' 조건을 선택해 주세요.')
+                return false
+              }
+              break
+            case '@column':
+              if (typeof (templateParameter.paramAttribute.columnValue_) === 'object') {
+                templateParameter.paramAttribute.columnValue = join(templateParameter.paramAttribute.columnValue_, ', ')
+              } else {
+                templateParameter.paramAttribute.columnValue = templateParameter.paramAttribute.columnValue_
+              }
+              if (!templateParameter.paramAttribute.columnValue) {
+                util.toastr().warning(displayName + ' 조건을 선택해 주세요.')
+                return false
+              }
+              break
+            case '@code':
+              if (typeof (templateParameter.paramAttribute.codeValue_) === 'object') {
+                templateParameter.paramAttribute.codeValue = join(templateParameter.paramAttribute.codeValue_, ', ')
+              } else {
+                templateParameter.paramAttribute.codeValue = templateParameter.paramAttribute.codeValue_
+              }
+              if (!templateParameter.paramAttribute.codeValue) {
+                util.toastr().warning(displayName + ' 조건을 선택해 주세요.')
+                return false
+              }
+              templateParameter.paramAttribute.selectType = templateParameter.paramAttr.selectType
+              break
+            case '@int':
+              const intValue = common.validNumberCommas(templateParameter.paramAttribute.intValue_ || '')
+              if (intValue === false) {
+                util.toastr().warning(displayName + ' 조건에 숫자만 입력 해주세요.')
+                return
+              }
+              if (intValue === '') {
+                util.toastr().warning(displayName + ' 조건에 값을 입력 해주세요.')
+                return
+              }
+              if (templateParameter.paramAttr.minValue !== '' && intValue < templateParameter.paramAttr.minValue) {
+                util.toastr().warning(displayName + ' 조건이 최소값 보다 작습니다.')
+                return
+              } else if (templateParameter.paramAttr.maxValue !== '' && intValue > templateParameter.paramAttr.maxValue) {
+                util.toastr().warning(displayName + ' 조건이 최대값 보다 큼니다.')
+                return
+              }
+              templateParameter.paramAttribute.intValue = intValue
+              break
+            case '@string':
+              if (!templateParameter.paramAttribute.stringValue) {
+                util.toastr().warning(displayName + ' 조건에 값을 입력 해주세요.')
+                return
+              }
+              break
+            case '@startInt~@endInt'.toLowerCase():
+              const startIntValue = common.validNumberCommas(templateParameter.paramAttribute.startIntValue_ || '')
+              const endIntValue = common.validNumberCommas(templateParameter.paramAttribute.endIntValue_ || '')
+              if (startIntValue === false || endIntValue === false) {
+                util.toastr().warning(displayName + ' 조건에 숫자만 입력 해주세요.')
+                return
+              }
+              if (startIntValue === '' || endIntValue === '') {
+                util.toastr().warning(displayName + ' 조건에 값을 입력 해주세요.')
+                return
+              }
+              if (templateParameter.paramAttr.minValue !== '' && startIntValue < templateParameter.paramAttr.minValue) {
+                util.toastr().warning(displayName + ' 조건 앞숫자 값이 최소값 보다 작습니다.')
+                return
+              } else if (templateParameter.paramAttr.maxValue !== '' && startIntValue > templateParameter.paramAttr.maxValue) {
+                util.toastr().warning(displayName + ' 조건 앞숫자 값이 최대값 보다 큼니다.')
+                return
+              }
+              if (templateParameter.paramAttr.minValue !== '' && endIntValue < templateParameter.paramAttr.minValue) {
+                util.toastr().warning(displayName + ' 조건이 뒷숫자 값이 최소값 보다 작습니다.')
+                return
+              } else if (templateParameter.paramAttr.maxValue !== '' && endIntValue > templateParameter.paramAttr.maxValue) {
+                util.toastr().warning(displayName + ' 조건이 뒷숫자 값이 최대값 보다 큼니다.')
+                return
+              }
+              if (startIntValue > endIntValue) {
+                util.toastr().warning(displayName + ' 조건 뒷숫자 값이 앞숫자 값보다 큼니다.')
+                return
+              }
+              templateParameter.paramAttribute.startIntValue = startIntValue
+              templateParameter.paramAttribute.endIntValue = endIntValue
+              break
+            default:
+          }
+          template.paramList[i] = {
+            paramType: templateParameter.paramType,
+            paranmInquery: templateParameter.paranmInquery,
+            orderNum: templateParameter.orderNum,
+            paramAttribute: templateParameter.paramAttribute
+          }
         }
-        /* console.log(self.parameterType())
-        console.log(templateParameter)
-        if (template !== templateParameter) {
+        console.log(template)
+        console.log(JSON.stringify(template))
+        /* if (template !== templateParameters) {
           return
         } */
         const spinner = util.spinner(self.spinnerId)
-        http.putPromise('/template/parameter', templateParameter).then(res => {
+        http.postPromise('/template/queryCheck', template).then(res => {
           spinner.stop()
-          if (res.data && res.data.result) {
-            util.toastr().success('저장 되었습니다.')
-            self.$store.dispatch(types.TEMPLATE_GET, self.templateId)
+          if (res.data) {
+            if (res.data.result) {
+              commit(types.TEMPLATE_PARAMETER_QUERY_CHECK, res.data.result)
+            } else {
+              util.toastr().error('Unknown Exception')
+            }
           } else {
             util.toastr().error('Unknown Exception')
           }
         })
       }
     },
-    [types.TEMPLATE_SAVE_4] ({ ommit }, self) {
-      const { state } = this._modules.root._children.template
-      if (state._useMock[types.TEMPLATE_SAVE_4]) {
+    [types.TEMPLATE_SAVE_4] ({ commit }, self) {
+      const isMock = false
+      if (isMock === true) {
         util.toastr().success('저장 되었습니다.')
         self.$router.push({name: 'template-step4-preview', params: {templateId: 1}})
       } else {
@@ -393,9 +647,9 @@ export const templateModule = {
         })
       }
     },
-    [types.TEMPLATE_IMAGE_POST] ({ ommit }, self) {
-      const { state } = this._modules.root._children.template
-      if (state._useMock[types.TEMPLATE_IMAGE_POST]) {
+    [types.TEMPLATE_IMAGE_POST] ({ commit }, self) {
+      const isMock = false
+      if (isMock === true) {
         util.toastr().success('저장 되었습니다.')
         document.getElementById(self.fileStatus).value = 'Upload Completed'
         self.fileCurrent = 'complated'
@@ -433,12 +687,12 @@ export const templateModule = {
         })
       }
     },
-    [types.TEMPLATE_IMAGE_DELETE] ({ ommit }, self) {
-      const { state } = this._modules.root._children.template
+    [types.TEMPLATE_IMAGE_DELETE] ({ commit }, self) {
       if (!confirm('정말 삭제하시겠습니까?')) {
         return
       }
-      if (state._useMock[types.TEMPLATE_IMAGE_DELETE]) {
+      const isMock = false
+      if (isMock === true) {
         util.toastr().success('삭제 되었습니다.')
         document.getElementById(self.fileStatus).value = ''
         self.fileCurrent = 'deleted'
@@ -457,9 +711,9 @@ export const templateModule = {
         })
       }
     },
-    [types.TEMPLATE_DEPLOY] ({ ommit }, self) {
-      const { state } = this._modules.root._children.template
-      if (state._useMock[types.TEMPLATE_DEPLOY]) {
+    [types.TEMPLATE_DEPLOY] ({ commit }, self) {
+      const isMock = false
+      if (isMock === true) {
         if (!confirm('배포하시겠습니까?')) {
           return
         }
@@ -496,12 +750,12 @@ export const templateModule = {
         })
       }
     },
-    [types.TEMPLATE_DISCARDCHANGE] ({ ommit }, self) {
-      const { state } = this._modules.root._children.template
+    [types.TEMPLATE_DISCARDCHANGE] ({ commit }, self) {
       if (!confirm('지금까지 수정된 내용이 모두 삭제되게 됩니다. 계속 진행하시겠습니까?')) {
         return
       }
-      if (state._useMock[types.TEMPLATE_DISCARDCHANGE]) {
+      const isMock = false
+      if (isMock === true) {
         util.toastr().success('삭제 되었습니다.')
         self.$store.dispatch(types.TEMPLATE_GET, self.templateId)
       } else {
@@ -518,8 +772,8 @@ export const templateModule = {
       }
     },
     [types.TEMPLATE_ORG] ({ commit }, templateId) {
-      const { state } = this._modules.root._children.template
-      if (state._useMock[types.TEMPLATE_ORG]) {
+      const isMock = false
+      if (isMock === true) {
         commit(types.TEMPLATE_ORG, mockTemplateGet.result)
       } else {
         http.getPromise('/template/org/' + templateId).then(res => {

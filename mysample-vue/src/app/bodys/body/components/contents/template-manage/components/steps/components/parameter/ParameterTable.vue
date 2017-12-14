@@ -24,7 +24,7 @@ export default {
     }
   },
   watch: {
-    templateParameter: function (templateParameter) {
+    templateParameter: function () {
       this.init()
     }
   },
@@ -33,12 +33,12 @@ export default {
       if (!this.templateParameter.paramAttr) {
         this.templateParameter.paramAttr = {
           dependencyType: 0,
-          tableValue: ''
+          databaseValue: ''
         }
       } else if (this.templateParameter.paramAttr.dependencyType === 0) {
-        this.templateParameter.paramAttr.tableValue0 = this.templateParameter.paramAttr.tableValue
+        this.templateParameter.paramAttr.databaseValue0 = this.templateParameter.paramAttr.databaseValue
       } else if (this.templateParameter.paramAttr.dependencyType === 1) {
-        this.templateParameter.paramAttr.tableValue1 = this.templateParameter.paramAttr.tableValue
+        this.templateParameter.paramAttr.databaseValue1 = this.templateParameter.paramAttr.databaseValue
       }
     }
   },
